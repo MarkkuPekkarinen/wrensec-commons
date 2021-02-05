@@ -1,3 +1,11 @@
+# 22.1.0
+
+## Changes
+
+### Major
+
+* Locale behavior changes with Java 9 (https://openjdk.java.net/jeps/252). Locale now depends on CLDR, which breaks parsing of RFC850 dates with non-shortened weekday (e.g. "Sunday, 06-Nov-94 08:49:37 GMT"). Run the jvm with java.locale.providers=COMPAT as a workaround. Dates with weekday shortened (e.g. "Sun, 06-Nov-94 08:49:37 GMT") are parsed just fine.
+
 # 3.0.0
 
 ## Changes
@@ -14,7 +22,7 @@
 ## Changes
 
 ### Minor
-* Allow SSL protocols and cipher suites to be set on requests 
+* Allow SSL protocols and cipher suites to be set on requests
 
 ### Bug fixes
 * Headers.copyAsMultiMapOfStrings will now return a case-innsensitive map

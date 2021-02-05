@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity</groupId>
         <artifactId>wrensec-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
         <relativePath />
     </parent>
 
@@ -37,22 +37,23 @@
     <url>https://www.wrensecurity.org</url>
 
     <properties>
-        <pgpWhitelistArtifact>org.wrensecurity:wrensec-pgp-whitelist:1.4.3</pgpWhitelistArtifact>
+        <pgpWhitelistArtifact>org.wrensecurity:wrensec-pgp-whitelist:1.5.1</pgpWhitelistArtifact>
 
         <!-- Third party components versions -->
         <i18nFrameworkVersion>1.4.3</i18nFrameworkVersion>
-        <jodaTime.version>2.10.1</jodaTime.version>
-        <assertj.version>3.11.1</assertj.version>
+        <jodaTime.version>2.10.9</jodaTime.version>
+        <assertj.version>3.19.0</assertj.version>
         <forgerock-guava.version>18.0.4</forgerock-guava.version>
-        <jackson.version>2.9.7</jackson.version>
-        <mockito.version>2.23.4</mockito.version>
-        <servlet-api.version>3.1.0</servlet-api.version>
-        <slf4j.version>1.7.23</slf4j.version>
-        <testng.version>6.14.3</testng.version>
-        <swagger.version>1.5.21</swagger.version>
-        <apache-httpcore.version>4.4.5</apache-httpcore.version>
-        <apache-httpclient.version>4.5.2</apache-httpclient.version>
-        <apache-httpasyncclient.version>4.1.2</apache-httpasyncclient.version>
+        <jackson.version>2.12.1</jackson.version>
+        <jaxb.version>2.3.1</jaxb.version>
+        <mockito.version>3.7.7</mockito.version>
+        <servlet-api.version>4.0.1</servlet-api.version>
+        <slf4j.version>1.7.30</slf4j.version>
+        <testng.version>7.3.0</testng.version>
+        <swagger.version>1.6.2</swagger.version>
+        <apache-httpcore.version>4.4.14</apache-httpcore.version>
+        <apache-httpclient.version>4.5.13</apache-httpclient.version>
+        <apache-httpasyncclient.version>4.1.4</apache-httpasyncclient.version>
         <jsr305.version>3.0.2</jsr305.version>
     </properties>
 
@@ -238,6 +239,12 @@
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-joda</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.version}</version>
             </dependency>
 
             <dependency>

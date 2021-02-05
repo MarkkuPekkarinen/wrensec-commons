@@ -20,7 +20,9 @@ import java.util.Collection;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.NoClass;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeIdResolver;
@@ -50,9 +52,8 @@ class ClassNameFallbackPropertyTypeResolver extends StdTypeResolverBuilder {
     @Override
     public TypeDeserializer buildTypeDeserializer(
             final DeserializationConfig config, final JavaType baseType, final Collection<NamedType> subtypes) {
-
         // important to get the normal TypeIdResolver!
-        final TypeIdResolver idRes = this.idResolver(config, baseType, subtypes, false, true);
+        final TypeIdResolver idRes = this.idResolver(config, baseType, verifyBaseTypeValidity(config, baseType), subtypes, false, true);
         return new ClassNameFallbackPropertyTypeDeserializer(baseType, idRes, _typeProperty, _typeIdVisible,
                 defaultImplAsJavaType(config, baseType));
     }

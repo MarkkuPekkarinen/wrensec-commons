@@ -63,15 +63,23 @@ public class AuditJsonConfigTest {
         return new Object[][] {
                 { "/audit-passthrough-handler-missing-name.json" },
                 { "/audit-passthrough-handler-missing-class.json" },
-                { "/audit-passthrough-handler-missing-events.json" }
+                { "/audit-passthrough-handler-missing-events.json" },
         };
     }
+
+
 
     @Test(dataProvider = "eventHandlerBadJsonConfigurations", expectedExceptions = AuditException.class)
     public void testRegisterHandlerWhenConfigurationIsNotCorrect(String jsonResource) throws Exception {
         AuditServiceBuilder auditServiceBuilder = newAuditService().withConfiguration(loadConfiguration());
         final JsonValue config = loadJsonValue(jsonResource);
+        AuditJsonConfig.registerHandlerToService(config, auditServiceBuilder);
+    }
 
+    @Test(expectedExceptions = AuditException.class, expectedExceptionsMessageRegExp = "Input stream is null")
+    public void testRegisterHandlerWhenSourceIsEmpty() throws Exception {
+        AuditServiceBuilder auditServiceBuilder = newAuditService().withConfiguration(loadConfiguration());
+        final JsonValue config = loadJsonValue("/I/do/not/exist.json");
         AuditJsonConfig.registerHandlerToService(config, auditServiceBuilder);
     }
 

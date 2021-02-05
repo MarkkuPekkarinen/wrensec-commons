@@ -19,6 +19,8 @@ package org.forgerock.selfservice.stages.kba;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.cfg.MapperBuilder;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import org.forgerock.selfservice.core.config.StageConfig;
 import org.testng.annotations.Test;
@@ -32,10 +34,9 @@ public final class SecurityAnswerDefinitionConfigTest {
 
     @Test
     public void testConfigFromJson() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerSubtypes(
-                new NamedType(SecurityAnswerDefinitionConfig.class, SecurityAnswerDefinitionConfig.NAME)
-        );
+        ObjectMapper mapper = JsonMapper.builder()
+                .registerSubtypes(new NamedType(SecurityAnswerDefinitionConfig.class, SecurityAnswerDefinitionConfig.NAME))
+                .build();
         StageConfig config = mapper.readValue(getClass().getResource("/kbaSecurityAnswerDefinition.json"),
                 StageConfig.class);
 

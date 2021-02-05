@@ -79,8 +79,12 @@ public final class AuditJsonConfig {
      *          If an error occurs.
      */
     public static JsonValue getJson(InputStream input) throws AuditException {
+        if (input == null) {
+            throw new AuditException("Input stream is null");
+        }
         try {
-            return new JsonValue(MAPPER.readValue(input, LinkedHashMap.class));
+            Object val = MAPPER.readValue(input, LinkedHashMap.class);
+            return new JsonValue(val);
         } catch (IOException e) {
             throw new AuditException(String.format("Unable to retrieve json value from json input stream"), e);
         }

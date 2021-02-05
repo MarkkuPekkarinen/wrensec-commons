@@ -96,8 +96,7 @@ public class ObjectValidatorFactoryTest {
         }
 
         assertThat(engineLanguages.asMap()).containsExactly(
-          entry("Oracle Nashorn", Collections.singletonList("ECMAScript")),
-          entry("BeanShell Engine", Collections.singletonList("BeanShell"))
+          entry("Oracle Nashorn", Collections.singletonList("ECMAScript"))
         );
     }
 }
