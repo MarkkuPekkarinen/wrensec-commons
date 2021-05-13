@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015 ForgeRock AS.
+ * Partial Copyright 2021 Wren Security
  */
 
 /**
  * The annotations are made available to allow a POJO annotated with
- * {@link org.forgerock.json.resource.annotations.RequestHandler} to be used as
+ * {@link org.forgerock.api.annotations.RequestHandler} to be used as
  * a CREST resource, with the necessary methods then being annotated to
  * indicate which operations are available, and the method that handles them.
  */

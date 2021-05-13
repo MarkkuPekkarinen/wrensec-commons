@@ -53,7 +53,7 @@ public final class OAuth2AuthorizationConnectionFactory {
     /**
      * Creates a {@code ConnectionFactory} with a route to the "resource" endpoint, which is protected by the
      * OAuth2 authorization filter which will deem an access token valid if it matches the string "VALID" and will
-     * return a scope of "SCOPE" and user info of "UID"->"DEMO".
+     * return a scope of "SCOPE" and user info of "UID"-&gt;"DEMO".
      *
      * @return A {@code ConnectionFactory} instance.
      */

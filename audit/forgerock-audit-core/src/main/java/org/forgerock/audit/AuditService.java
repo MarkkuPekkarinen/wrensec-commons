@@ -137,8 +137,8 @@ public interface AuditService extends RequestHandler {
      * <pre>
      * [path-to-audit-service]?_action=XXX : call a global action on audit service
      * [path-to-audit-service/[topic]?_action=XXX : call an action on audit service and a single topic
-     * [path-to-audit-service]?_action=XXX&handler=HHH : call on action on a specific handler
-     * [path-to-audit-service/[topic]?_action=XXX&handler=HHH : call on action on a specific handler and topic
+     * [path-to-audit-service]?_action=XXX&amp;handler=HHH : call on action on a specific handler
+     * [path-to-audit-service/[topic]?_action=XXX&amp;handler=HHH : call on action on a specific handler and topic
      * </pre>
      */
     @Override

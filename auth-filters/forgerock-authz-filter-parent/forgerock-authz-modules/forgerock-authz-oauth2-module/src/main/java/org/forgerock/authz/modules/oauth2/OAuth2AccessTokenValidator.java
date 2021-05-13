@@ -33,7 +33,6 @@ public interface OAuth2AccessTokenValidator {
      * @param accessToken The access token to validate.
      * @return An AccessTokenValidationResponse containing the result of the validation and scope and profile
      * information.
-     * @throws OAuth2Exception If there is a problem validating the access token.
      */
     Promise<AccessTokenValidationResponse, OAuth2Exception> validate(String accessToken);
 }

@@ -36,7 +36,7 @@
     <properties>
         <!-- -DskipTests=false required to run benchmarks -->
         <skipTests>true</skipTests>
-        <jmh.version>1.21</jmh.version>
+        <jmh.version>1.27</jmh.version>
         <javac.target>1.8</javac.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

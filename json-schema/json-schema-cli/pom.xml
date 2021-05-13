@@ -25,7 +25,6 @@
     </parent>
 
     <artifactId>json-schema-cli</artifactId>
-    <packaging>jar</packaging>
 
     <name>Wren Security Commons JSON Schema - Draft-04 Validator CLI</name>
     <description>

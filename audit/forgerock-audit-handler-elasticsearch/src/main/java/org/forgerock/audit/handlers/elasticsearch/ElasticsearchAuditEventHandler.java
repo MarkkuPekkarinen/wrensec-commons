@@ -361,7 +361,6 @@ public class ElasticsearchAuditEventHandler extends AuditEventHandlerBase implem
      * payload to Elasticsearch.
      *
      * @param payload Elasticsearch Bulk API payload
-     * @throws BatchException indicates (full or partial) failure to publish batch
      */
     @Override
     public Promise<Void, BatchException> publishBatch(final String payload) {

@@ -19,6 +19,10 @@ package org.forgerock.caf.authentication.api;
 import static org.forgerock.json.JsonValue.json;
 import static org.forgerock.json.JsonValue.object;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.forgerock.json.JsonValue;
 import org.forgerock.json.JsonValueException;
 

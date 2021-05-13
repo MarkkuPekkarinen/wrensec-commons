@@ -53,26 +53,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>mailing-list</report>
-                            <report>issue-tracking</report>
-                            <report>license</report>
-                            <report>scm</report>
-                            <report>cim</report>
-                            <report>distribution-management</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>

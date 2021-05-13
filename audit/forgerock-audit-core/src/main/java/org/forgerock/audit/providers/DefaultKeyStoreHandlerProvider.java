@@ -37,7 +37,7 @@ public class DefaultKeyStoreHandlerProvider implements KeyStoreHandlerProvider {
     }
 
     /**
-     * Creates a provider with some {@link KeystoreHandler} instances.
+     * Creates a provider with some {@link KeyStoreHandler} instances.
      *
      * @param handlers
      *          The storage instances to use in the provider.
@@ -50,7 +50,7 @@ public class DefaultKeyStoreHandlerProvider implements KeyStoreHandlerProvider {
      * Register a storage with the given name.
      *
      * @param name
-     *          Name associated to the {@link KeystoreHandler} instance.
+     *          Name associated to the {@link KeyStoreHandler} instance.
      * @param handler
      *          The storage instance.
      */

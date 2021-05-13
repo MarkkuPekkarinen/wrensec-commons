@@ -17,7 +17,7 @@
 /**
  * These classes are capable of helping the validators to check certain constraints.
  * <p/>
- * The <a href="http://tools.ietf.org/html/draft-zyp-json-schema-03>schema</a> definition
+ * The <a href="http://tools.ietf.org/html/draft-zyp-json-schema-03">schema</a> definition
  * uses multiple constraints but most of them are type specific. These are the common ones.
  */
 package org.forgerock.json.schema.validator.helpers;

@@ -12,17 +12,19 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions Copyright 2021 Wren Security
  */
 
 /**
  * These classes are capable of validating the objects against the initially loaded schema.
  * <p/>
- * All class implements the abstract {@link Validator} class and has the {@link Validator#Validator(java.util.Map)}}
+ * All class implements the abstract {@link Validator} class and has the {@link Validator#Validator(java.util.Map, java.util.List)}}
  * constructor.
  * <p/>
  * Each class is responsible for validating one object type. See the mappings between the types and classes in the
  * this table.
  * <table>
+ * 	   <caption>JSON type validators</caption>
  *     <tr>
  *         <td>string</td><td>{@link StringTypeValidator}</td>
  *     </tr>

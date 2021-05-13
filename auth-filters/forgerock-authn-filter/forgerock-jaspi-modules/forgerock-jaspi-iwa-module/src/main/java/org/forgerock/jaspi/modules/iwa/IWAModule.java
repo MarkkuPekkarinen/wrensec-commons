@@ -84,7 +84,6 @@ public class IWAModule implements AsyncServerAuthModule {
      * @param clientSubject {@inheritDoc}
      * @param serviceSubject {@inheritDoc}
      * @return {@inheritDoc}
-     * @throws AuthException {@inheritDoc}
      */
     @Override
     public Promise<AuthStatus, AuthenticationException> validateRequest(MessageInfoContext messageInfo,

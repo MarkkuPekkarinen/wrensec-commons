@@ -117,6 +117,7 @@ public class OpenAMSessionModule implements AsyncServerAuthModule {
      * Will initialise the module with the specified configuration properties.
      * <br/>
      * <table>
+     * <caption>Module configuration properties</caption>
      * <thead>
      * <tr><th>Property</th><th>Type</th><th>Required</th><th>Default Value</th><th>Description</th><th>Example</th>
      * </tr>

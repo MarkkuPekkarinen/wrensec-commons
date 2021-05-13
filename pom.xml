@@ -55,15 +55,6 @@
     <tag>HEAD</tag>
   </scm>
 
-  <properties>
-    <!-- Maven minimal version -->
-    <!-- This is enforced by wrensec-parent via the `enforce` profile, which is enabled unless -->
-    <!-- -Dskip-enforce=true -->
-    <maven.min.version>3.0.1</maven.min.version>
-    <!-- Override wrensec-parent version that breaks on some system due to Xstream library  -->
-    <mavenWarPluginVersion>3.3.1</mavenWarPluginVersion>
-  </properties>
-
   <modules>
     <module>commons-bom</module>
     <module>audit</module>

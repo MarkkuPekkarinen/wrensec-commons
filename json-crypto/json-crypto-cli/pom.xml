@@ -25,7 +25,6 @@
     </parent>
 
     <artifactId>json-crypto-cli</artifactId>
-    <packaging>jar</packaging>
 
     <name>Wren Security Commons JSON Crypto - CLI</name>
     <description>Wren Security JSON cryptographic command line tool</description>

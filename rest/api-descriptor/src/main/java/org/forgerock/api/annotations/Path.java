@@ -44,7 +44,7 @@ import java.lang.annotation.Target;
  *     &#064;Path("things")
  *     public class ThingProducer {
  *         &#064;Read
- *         public Promise&lt;ResourceResponse, ResourceException> get(String id) {
+ *         public Promise&lt;ResourceResponse, ResourceException&gt; get(String id) {
  *             // ...
  *         }
  *
@@ -57,7 +57,7 @@ import java.lang.annotation.Target;
  *     &#064;RequestHandler(variant = SINGLETON_RESOURCE)
  *     public class SubthingProducer {
  *         &#064;Read
- *         public Promise&lt;ResourceResponse, ResourceException> get() {
+ *         public Promise&lt;ResourceResponse, ResourceException&gt; get() {
  *             // ...
  *         }
  *     }
