@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2021 Wren Security.
  */
 
 package org.forgerock.audit.handlers.json;
@@ -297,38 +298,23 @@ class JsonFileWriter {
         void shutdown() {
             if (!shutdown) {
                 shutdown = true;
-
-                if (flushOnShutdown) {
-                    // flush requested, so block in an non-cancelable way
-                    boolean interrupted = false;
-                    while (!scheduler.isTerminated()) {
-                        try {
-                            scheduler.awaitTermination(1L, TimeUnit.MINUTES);
-                        } catch (InterruptedException e) {
-                            interrupted = true;
-                        }
-                    }
-                    if (interrupted) {
-                        Thread.currentThread().interrupt();
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void run() {
-            if (!shutdown) {
-                // following loop will run at least once, even if queue is empty, so that rotation policies will run
-                do {
-                    writeEvents();
-                } while (!queue.isEmpty() && !shutdown);
-            }
-
-            if (shutdown) {
-                // we shutdown this runnable's scheduler here, so that we can guarantee that flush will proceed
                 scheduler.shutdown();
                 try {
                     if (flushOnShutdown) {
+                        // flush requested, so block in an non-cancelable way
+                        boolean interrupted = false;
+                        while (!scheduler.isTerminated()) {
+                            try {
+                                scheduler.awaitTermination(1L, TimeUnit.MINUTES);
+                                logger.info("Awaiting audit event consumer termination.");
+                            } catch (InterruptedException e) {
+                                interrupted = true;
+                            }
+                        }
+                        if (interrupted) {
+                            Thread.currentThread().interrupt();
+                        }
+                        // process remaining events and flush topic writers
                         while (!queue.isEmpty()) {
                             writeEvents();
                         }
@@ -340,6 +326,14 @@ class JsonFileWriter {
                     closeSilently(topicEntryMap.values());
                 }
             }
+        }
+
+        @Override
+        public void run() {
+            // following loop will run at least once, even if queue is empty, so that rotation policies will run
+            do {
+                writeEvents();
+            } while (!queue.isEmpty() && !shutdown);
         }
 
         private void writeEvents() {

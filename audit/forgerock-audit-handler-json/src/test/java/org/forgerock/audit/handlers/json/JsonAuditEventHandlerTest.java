@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2021 Wren Security.
  */
 
 package org.forgerock.audit.handlers.json;
@@ -23,6 +24,7 @@ import static org.forgerock.audit.handlers.json.JsonAuditEventHandler.ROTATE_FIL
 import static org.forgerock.json.JsonValue.*;
 import static org.forgerock.json.JsonValue.field;
 import static org.forgerock.util.test.FileUtils.deleteRecursively;
+import static org.junit.Assert.fail;
 
 import java.io.InputStream;
 import java.nio.file.DirectoryStream;
@@ -34,6 +36,8 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.forgerock.audit.events.EventTopicsMetaData;
@@ -102,6 +106,26 @@ public class JsonAuditEventHandlerTest {
     public void testRotateDuringQuery() throws Exception {
         // force a rotate during a query, which causes the underlying file to be moved
         writeAndQueryEvents(LARGE_EVENT_COUNT, true);
+    }
+
+    /**
+     * Test that shutdown on non-started handler does not halt the thread.
+     */
+    @Test
+    public void testUnevenShutdown() throws Exception {
+        final AuditEventHandler handler = new JsonAuditEventHandler(
+                // empty config should have no side-effect as we are not starting the handler
+                new JsonAuditEventHandlerConfiguration(), getEventTopicsMetaData("/events.json"));
+        final CountDownLatch stopped = new CountDownLatch(1);
+        new Thread(() -> {
+            try {
+                handler.shutdown();
+                stopped.countDown();
+            } catch (ResourceException e) { /* ignore */ }
+        }).start();
+        if (!stopped.await(100, TimeUnit.MILLISECONDS)) {
+            fail("Audit event handler failed to stop in time.");
+        }
     }
 
     private void writeAndQueryEvents(final int eventCount, final boolean forceRotateDuringQuery) throws Exception {

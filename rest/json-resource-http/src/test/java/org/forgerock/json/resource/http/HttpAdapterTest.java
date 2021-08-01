@@ -12,7 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
- * Portions Copyright 2018 Wren Security.
+ * Portions Copyright 2018-2021 Wren Security.
  */
 package org.forgerock.json.resource.http;
 
@@ -152,7 +152,8 @@ public class HttpAdapterTest {
         assertThatPromise(result).succeeded();
         Entity entity = result.get().getEntity();
         assertThat(JsonValue.json(entity.getJson())).isObject().stringAt("id").isEqualTo("test:descriptor");
-        assertThat(entity.getString()).startsWith("{\n  \"id\" : \"test:descriptor\",\n  \"version\" : \"1.0\",\n");
+        assertThat(entity.getString().replaceAll("\r", ""))
+                .startsWith("{\n  \"id\" : \"test:descriptor\",\n  \"version\" : \"1.0\",\n");
     }
 
     @Test
