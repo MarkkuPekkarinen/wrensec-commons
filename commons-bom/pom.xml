@@ -21,13 +21,13 @@
     <parent>
         <groupId>org.wrensecurity</groupId>
         <artifactId>wrensec-parent</artifactId>
-        <version>3.2.1-SNAPSHOT</version>
+        <version>3.2.1</version>
         <relativePath />
     </parent>
 
     <groupId>org.forgerock.commons</groupId>
     <artifactId>commons-bom</artifactId>
-    <version>22.1.0-SNAPSHOT</version>
+    <version>22.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Wren Security Common Bill Of Materials</name>
@@ -710,4 +710,11 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+  <scm>
+    <tag>HEAD</tag>
+    <connection>scm:git:git://github.com/WrenSecurity/wrensec-commons.git</connection>
+    <developerConnection>scm:git:git@github.com:WrenSecurity/wrensec-commons.git</developerConnection>
+    <url>https://github.com/WrenSecurity/wrensec-commons</url>
+  </scm>
 </project>

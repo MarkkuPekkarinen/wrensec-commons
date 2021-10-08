@@ -224,6 +224,7 @@ public class WDSSO {
         keyTabFile = null;
         kdcRealm = null;
         kdcServer = null;
+        returnRealm = false;
     }
 
     private String getUserName(String user) {
@@ -340,8 +341,11 @@ public class WDSSO {
         keyTabFile = options.get("keytabFileName");
         kdcRealm = options.get("kerberosRealm");
         kdcServer = options.get("kerberosServerName");
-        LOG.debug("IWA WDSSO: WindowsDesktopSSO params: principal: {}, keytab file: {}, realm : {}, kdc server: {}",
-                servicePrincipalName, keyTabFile, kdcRealm, kdcServer);
+        if (options.get("returnRealm") != null) {
+            returnRealm = Boolean.valueOf(options.get("returnRealm"));
+        }
+        LOG.debug("IWA WDSSO: WindowsDesktopSSO params: principal: {}, keytab file: {}, realm : {}, kdc server: {}, returnRealm: {}",
+                servicePrincipalName, keyTabFile, kdcRealm, kdcServer, returnRealm);
         return serviceSubject != null;
     }
 

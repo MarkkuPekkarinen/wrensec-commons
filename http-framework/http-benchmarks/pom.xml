@@ -21,7 +21,7 @@
   <parent>
     <artifactId>forgerock-http-framework-parent</artifactId>
     <groupId>org.forgerock.http</groupId>
-    <version>22.1.0-SNAPSHOT</version>
+    <version>22.1.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>chf-benchmarks</artifactId>
