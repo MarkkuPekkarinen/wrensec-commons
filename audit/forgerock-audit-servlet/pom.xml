@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.forgerock.commons</groupId>
         <artifactId>forgerock-audit</artifactId>
-        <version>22.1.1-SNAPSHOT</version>
+        <version>22.1.2-SNAPSHOT</version>
     </parent>
 
     <!-- TODO: When this package is renamed for `wrensec-XYZ`, give it a better
