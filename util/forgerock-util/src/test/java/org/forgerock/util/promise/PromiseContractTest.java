@@ -24,7 +24,7 @@ import static org.forgerock.util.promise.Promises.newResultPromise;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -201,7 +201,7 @@ public class PromiseContractTest {
         Promise resultPromise = rootPromise.thenCatchAsync(catchException);
 
         //Then
-        verifyZeroInteractions(catchException);
+        verifyNoInteractions(catchException);
         assertThat(resultPromise.getOrThrowUninterruptibly()).isEqualTo(PROMISE_RESULT);
     }
 
@@ -238,7 +238,7 @@ public class PromiseContractTest {
         Promise resultPromise = rootPromise.thenCatchAsync(ignoredAsyncFunction);
 
         //Then
-        verifyZeroInteractions(ignoredAsyncFunction);
+        verifyNoInteractions(ignoredAsyncFunction);
         try {
             resultPromise.getOrThrowUninterruptibly();
             failBecauseExceptionWasNotThrown(PROMISE_RUNTIME_EXCEPTION.getClass());
@@ -258,7 +258,7 @@ public class PromiseContractTest {
         Promise resultPromise = rootPromise.thenAsync(ignoredAsyncFunction);
 
         // Then
-        verifyZeroInteractions(ignoredAsyncFunction);
+        verifyNoInteractions(ignoredAsyncFunction);
         try {
             resultPromise.getOrThrowUninterruptibly();
             failBecauseExceptionWasNotThrown(PROMISE_EXCEPTION.getClass());
@@ -278,7 +278,7 @@ public class PromiseContractTest {
         Promise resultPromise = rootPromise.then(ignoredThenFunction);
 
         // Then
-        verifyZeroInteractions(ignoredThenFunction);
+        verifyNoInteractions(ignoredThenFunction);
         try {
             resultPromise.getOrThrowUninterruptibly();
             failBecauseExceptionWasNotThrown(PROMISE_EXCEPTION.getClass());

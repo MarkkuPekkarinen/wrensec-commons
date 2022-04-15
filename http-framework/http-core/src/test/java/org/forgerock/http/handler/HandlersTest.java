@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import org.forgerock.http.Filter;
 import org.forgerock.http.Handler;
@@ -187,7 +187,7 @@ public final class HandlersTest {
         chain.handle(context, request);
 
         verify(shortcut).filter(same(context), same(request), any(Handler.class));
-        verifyZeroInteractions(terminal);
+        verifyNoInteractions(terminal);
     }
 
     private interface ChainProducer {

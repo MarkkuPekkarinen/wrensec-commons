@@ -17,7 +17,7 @@ dependency management section:
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>org.forgerock.commons</groupId>
+            <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-bom</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>import</scope>
@@ -33,7 +33,7 @@ need to specify the version:
 ```xml
   <dependencies>
     <dependency>
-        <groupId>org.forgerock.commons</groupId>
+        <groupId>org.wrensecurity.commons</groupId>
         <artifactId>json-resource-http</artifactId>
     </dependency>
 </dependencies>

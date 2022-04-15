@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import java.security.Principal;
 
@@ -422,7 +422,7 @@ public class AuthContextsTest {
 
         //Then
         assertThat(promise).succeeded();
-        verifyZeroInteractions(logger);
+        verifyNoInteractions(logger);
     }
 
     @Test

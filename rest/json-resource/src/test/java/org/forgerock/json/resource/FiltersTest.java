@@ -98,7 +98,7 @@ public final class FiltersTest {
         final Context context = mock(Context.class);
         invokeFilter(context, type, conditionalFilter, null, next);
         // Filter should not have been invoked and next should have.
-        verifyZeroInteractions(filter);
+        verifyNoInteractions(filter);
         invokeRequestHandler(context, type, verify(next));
     }
 
@@ -112,7 +112,7 @@ public final class FiltersTest {
         invokeFilter(context, type, conditionalFilter, null, next);
         // Filter should have been invoked and next should not.
         invokeFilter(context, type, verify(filter), null, next);
-        verifyZeroInteractions(next);
+        verifyNoInteractions(next);
     }
 
     @Test

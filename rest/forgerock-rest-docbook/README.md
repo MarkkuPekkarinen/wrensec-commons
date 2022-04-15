@@ -21,7 +21,7 @@ unpack the content into shared:
         <configuration>
         <artifactItems>
             <artifactItem>
-                <groupId>org.forgerock.commons</groupId>
+                <groupId>org.wrensecurity.commons</groupId>
                 <artifactId>forgerock-rest-docbook</artifactId>
                 <version>${forgerockRestVersion}</version>
                 <outputDirectory>${project.build.directory}/docbkx-sources</outputDirectory>

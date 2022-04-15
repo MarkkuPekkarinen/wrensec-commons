@@ -20,8 +20,8 @@
 
     <parent>
         <artifactId>forgerock-selfservice</artifactId>
-        <groupId>org.forgerock.commons</groupId>
-        <version>22.1.2-SNAPSHOT</version>
+        <groupId>org.wrensecurity.commons</groupId>
+        <version>22.2.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-selfservice-custom-stage</artifactId>
@@ -31,7 +31,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.forgerock.commons</groupId>
+            <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-selfservice-core</artifactId>
             <version>${project.version}</version>
         </dependency>

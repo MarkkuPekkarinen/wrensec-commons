@@ -19,9 +19,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.forgerock.commons</groupId>
+        <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-rest</artifactId>
-        <version>22.1.2-SNAPSHOT</version>
+        <version>22.2.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>json-resource-http</artifactId>
@@ -33,13 +33,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.forgerock.commons</groupId>
+            <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.forgerock.http</groupId>
+            <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-http-core</artifactId>
         </dependency>
 
@@ -90,13 +90,13 @@
         </dependency>
 
         <dependency>
-            <groupId>org.forgerock.http</groupId>
+            <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-http-servlet</artifactId>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.forgerock.http</groupId>
+            <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-client-apache-async</artifactId>
             <scope>test</scope>
         </dependency>
@@ -109,7 +109,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.forgerock.commons</groupId>
+            <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-test-utils</artifactId>
             <scope>test</scope>
         </dependency>

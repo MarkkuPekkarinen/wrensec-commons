@@ -81,22 +81,4 @@ public class ObjectValidatorFactoryTest {
         schema.put(Constants.TYPE, 1);
         ObjectValidatorFactory.getTypeValidator(schema);
     }
-
-    @Test
-    public void enginesTest() {
-        ScriptEngineManager manager = new ScriptEngineManager();
-        List<ScriptEngineFactory> factoryList = manager.getEngineFactories();
-        Multimap<String, String> engineLanguages = ArrayListMultimap.create();
-
-        for (ScriptEngineFactory factory : factoryList) {
-            final String engineName   = factory.getEngineName(),
-                         languageName = factory.getLanguageName();
-
-            engineLanguages.put(engineName, languageName);
-        }
-
-        assertThat(engineLanguages.asMap()).containsExactly(
-          entry("Oracle Nashorn", Collections.singletonList("ECMAScript"))
-        );
-    }
 }

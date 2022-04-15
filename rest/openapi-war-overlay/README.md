@@ -11,7 +11,7 @@ Applications must add the following dependency to their pom.xml,
 
 ```
 <dependency>
-  <groupId>org.forgerock.commons</groupId>
+  <groupId>org.wrensecurity.commons</groupId>
   <artifactId>openapi-war-overlay</artifactId>
   <version>${project.version}</version>
   <type>war</type>
@@ -37,7 +37,7 @@ The WAR overlay is applied via an overlay entry in the `maven-war-plugin`,
             <classifier>servlet</classifier>
             <overlays>
               <overlay>
-                <groupId>org.forgerock.commons</groupId>
+                <groupId>org.wrensecurity.commons</groupId>
                 <artifactId>openapi-war-overlay</artifactId>
               </overlay>
             </overlays>

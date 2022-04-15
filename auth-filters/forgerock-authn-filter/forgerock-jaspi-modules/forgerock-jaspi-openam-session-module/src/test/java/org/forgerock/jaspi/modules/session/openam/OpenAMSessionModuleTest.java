@@ -22,7 +22,7 @@ import static org.forgerock.util.promise.Promises.*;
 import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.testng.Assert.*;
 
 import java.util.Collection;
@@ -235,7 +235,7 @@ public class OpenAMSessionModuleTest {
         sessionModule.initialize(requestMessagePolicy, responseMessagePolicy, callbackHandler, options);
 
         //Then
-        verifyZeroInteractions(httpHandler);
+        verifyNoInteractions(httpHandler);
     }
 
     @Test
@@ -257,7 +257,7 @@ public class OpenAMSessionModuleTest {
         } catch (IllegalArgumentException e) {
             //Then
             assertTrue(e.getMessage().contains("truststorePath property must be set"));
-            verifyZeroInteractions(httpHandler);
+            verifyNoInteractions(httpHandler);
         }
     }
 
@@ -282,7 +282,7 @@ public class OpenAMSessionModuleTest {
         } catch (IllegalArgumentException e) {
             //Then
             assertTrue(e.getMessage().contains("truststorePath property must be set"));
-            verifyZeroInteractions(httpHandler);
+            verifyNoInteractions(httpHandler);
         }
     }
 
@@ -306,7 +306,7 @@ public class OpenAMSessionModuleTest {
         } catch (IllegalArgumentException e) {
             //Then
             assertTrue(e.getMessage().contains("truststoreType property must be set"));
-            verifyZeroInteractions(httpHandler);
+            verifyNoInteractions(httpHandler);
         }
     }
 
@@ -332,7 +332,7 @@ public class OpenAMSessionModuleTest {
         } catch (IllegalArgumentException e) {
             //Then
             assertTrue(e.getMessage().contains("truststoreType property must be set"));
-            verifyZeroInteractions(httpHandler);
+            verifyNoInteractions(httpHandler);
         }
     }
 
@@ -358,7 +358,7 @@ public class OpenAMSessionModuleTest {
         } catch (IllegalArgumentException e) {
             //Then
             assertTrue(e.getMessage().contains("truststorePassword property must be set"));
-            verifyZeroInteractions(httpHandler);
+            verifyNoInteractions(httpHandler);
         }
     }
 
@@ -385,7 +385,7 @@ public class OpenAMSessionModuleTest {
         } catch (IllegalArgumentException e) {
             //Then
             assertTrue(e.getMessage().contains("truststorePassword property must be set"));
-            verifyZeroInteractions(httpHandler);
+            verifyNoInteractions(httpHandler);
         }
     }
 
@@ -739,7 +739,7 @@ public class OpenAMSessionModuleTest {
         sessionModule.cleanSubject(messageInfo, clientSubject);
 
         //Then
-        verifyZeroInteractions(messageInfo, httpHandler);
+        verifyNoInteractions(messageInfo, httpHandler);
     }
 
     private void mockHttpRequests(final Pair<String, JsonValue>... requests) {

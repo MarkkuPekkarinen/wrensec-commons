@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -255,7 +255,7 @@ public class FiltersTest {
         chain.filter(context, request, terminal);
 
         verify(shortcut).filter(same(context), same(request), any(Handler.class));
-        verifyZeroInteractions(terminal);
+        verifyNoInteractions(terminal);
     }
 
     private interface ChainProducer {

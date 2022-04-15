@@ -76,7 +76,7 @@ public class PromisesTest {
         leafPromise.thenOnRuntimeException(runtimeExceptionHandler);
 
         //Then
-        verifyZeroInteractions(resultHandler, exceptionHandler);
+        verifyNoInteractions(resultHandler, exceptionHandler);
         verify(runtimeExceptionHandler).handleRuntimeException(runtimeException);
     }
 
@@ -104,7 +104,7 @@ public class PromisesTest {
         leafPromise.thenOnRuntimeException(runtimeExceptionHandler);
 
         //Then
-        verifyZeroInteractions(resultHandler, exceptionHandler);
+        verifyNoInteractions(resultHandler, exceptionHandler);
         verify(runtimeExceptionHandler).handleRuntimeException(runtimeException);
     }
 
@@ -132,7 +132,7 @@ public class PromisesTest {
         leafPromise.thenOnRuntimeException(runtimeExceptionHandler);
 
         //Then
-        verifyZeroInteractions(resultHandler, exceptionHandler);
+        verifyNoInteractions(resultHandler, exceptionHandler);
         verify(runtimeExceptionHandler).handleRuntimeException(runtimeException);
     }
 
@@ -160,7 +160,7 @@ public class PromisesTest {
         leafPromise.thenOnRuntimeException(runtimeExceptionHandler);
 
         //Then
-        verifyZeroInteractions(resultHandler, exceptionHandler);
+        verifyNoInteractions(resultHandler, exceptionHandler);
         verify(runtimeExceptionHandler).handleRuntimeException(runtimeException);
     }
 }

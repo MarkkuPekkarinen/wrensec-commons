@@ -62,7 +62,7 @@ public class JsonPatchJavascriptValueTransformer implements JsonPatchValueTransf
         }
 
         try {
-            ScriptEngineManager factory = new ScriptEngineManager(null);
+            ScriptEngineManager factory = new ScriptEngineManager();
             ScriptEngine engine = factory.getEngineByName("JavaScript");
             String finalScript = "var content = " + content.toString() + "; " + script.getObject();
             return String.valueOf(engine.eval(finalScript));

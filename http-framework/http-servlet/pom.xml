@@ -19,9 +19,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.forgerock.http</groupId>
+    <groupId>org.wrensecurity.http</groupId>
     <artifactId>forgerock-http-framework-parent</artifactId>
-    <version>22.1.2-SNAPSHOT</version>
+    <version>22.2.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>chf-http-servlet</artifactId>
@@ -49,7 +49,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.forgerock.http</groupId>
+      <groupId>org.wrensecurity.http</groupId>
       <artifactId>chf-http-core</artifactId>
     </dependency>
 
@@ -65,6 +65,12 @@
       <version>2.0.0</version>
       <scope>provided</scope>
       <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-all</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -86,7 +92,7 @@
     </dependency>
 
     <dependency>
-      <groupId>org.forgerock.http</groupId>
+      <groupId>org.wrensecurity.http</groupId>
       <artifactId>binding-test-utils</artifactId>
       <scope>test</scope>
     </dependency>

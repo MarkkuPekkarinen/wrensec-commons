@@ -19,10 +19,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-     <groupId>org.forgerock.commons</groupId>
+     <groupId>org.wrensecurity.commons</groupId>
      <artifactId>commons-bom</artifactId>
      <relativePath>commons-bom/pom.xml</relativePath>
-     <version>22.1.2-SNAPSHOT</version>
+     <version>22.2.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>commons-parent</artifactId>
@@ -47,13 +47,6 @@
     <system>GitHub Issues</system>
     <url>https://github.com/WrenSecurity/wrensec-commons/issues</url>
   </issueManagement>
-
-  <scm>
-    <url>https://github.com/WrenSecurity/wrensec-commons</url>
-    <connection>scm:git:git://github.com/WrenSecurity/wrensec-commons.git</connection>
-    <developerConnection>scm:git:git@github.com:WrenSecurity/wrensec-commons.git</developerConnection>
-    <tag>22.1.1</tag>
-  </scm>
 
   <modules>
     <module>commons-bom</module>

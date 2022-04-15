@@ -27,7 +27,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
@@ -166,7 +166,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_FAILURE);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
     }
 
     @Test
@@ -200,7 +200,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_FAILURE);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
     }
 
     @Test
@@ -239,7 +239,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_FAILURE);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
     }
 
     @Test
@@ -279,7 +279,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_FAILURE);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
 
     }
 
@@ -313,7 +313,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_FAILURE);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
     }
 
     @Test
@@ -352,7 +352,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_FAILURE);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
     }
 
     @Test
@@ -408,7 +408,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_FAILURE);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
     }
 
     @Test
@@ -493,7 +493,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_FAILURE);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
     }
 
     @Test
@@ -564,7 +564,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SUCCESS);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
         ArgumentCaptor<Callback[]> callbackCaptor =
                 ArgumentCaptor.forClass(Callback[].class);
         verify(callbackHandler).handle(callbackCaptor.capture());
@@ -691,7 +691,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_SUCCESS);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
     }
 
     @Test
@@ -721,7 +721,7 @@ public class ServletJwtSessionModuleTest {
 
         //Then
         assertEquals(authStatus, AuthStatus.SEND_SUCCESS);
-        verifyZeroInteractions(response);
+        verifyNoInteractions(response);
     }
 
     @Test

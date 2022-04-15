@@ -105,7 +105,7 @@ public final class FilterChainTest {
         final InOrder inOrder = inOrder(filter1, filter2, target);
         inOrder.verify(filter1).filterRead(same(context), same(request), any(RequestHandler.class));
         assertThat(promise).failedWithException().isEqualTo(expectedError);
-        verifyZeroInteractions(filter2, target);
+        verifyNoInteractions(filter2, target);
     }
 
     @Test
@@ -124,7 +124,7 @@ public final class FilterChainTest {
         final InOrder inOrder = inOrder(filter1, filter2, target);
         inOrder.verify(filter1).filterRead(same(context), same(request), any(RequestHandler.class));
         assertThat(promise).succeeded().withObject().isEqualTo(RESOURCE);
-        verifyZeroInteractions(filter2, target);
+        verifyNoInteractions(filter2, target);
     }
 
     @Test

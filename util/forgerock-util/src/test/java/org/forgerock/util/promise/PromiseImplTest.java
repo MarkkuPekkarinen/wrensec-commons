@@ -266,7 +266,7 @@ public class PromiseImplTest {
         inOrder.verify(alwaysListener).run();
         inOrder.verify(resultHandler2).handleResult(result);
         inOrder.verify(onResultOrException).run();
-        verifyZeroInteractions(runtimeExceptionHandler);
+        verifyNoInteractions(runtimeExceptionHandler);
     }
 
     /**
@@ -333,7 +333,7 @@ public class PromiseImplTest {
         inOrder.verify(alwaysListener).run();
         inOrder.verify(exceptionHandler2).handleException(result);
         inOrder.verify(onResultOrException).run();
-        verifyZeroInteractions(runtimeExceptionHandler);
+        verifyNoInteractions(runtimeExceptionHandler);
     }
 
     /**
@@ -393,7 +393,7 @@ public class PromiseImplTest {
         inOrder.verify(runtimeExceptionHandler1).handleRuntimeException(result);
         inOrder.verify(runtimeExceptionHandler2).handleRuntimeException(result);
         inOrder.verify(alwaysListener).run();
-        verifyZeroInteractions(onResultOrException);
+        verifyNoInteractions(onResultOrException);
     }
 
     @DataProvider

@@ -38,7 +38,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -247,7 +247,7 @@ public class AuditServiceImplTest {
 
         //then
         assertThatPromise(promise).isSameAs(dummyResponse);
-        verifyZeroInteractions(otherAuditEventHandler);
+        verifyNoInteractions(otherAuditEventHandler);
     }
 
     @Test
@@ -724,7 +724,7 @@ public class AuditServiceImplTest {
 
         //then
         assertThatPromise(promise).failedWithException().isInstanceOf(BadRequestException.class);
-        verifyZeroInteractions(otherAuditEventHandler);
+        verifyNoInteractions(otherAuditEventHandler);
     }
 
     @Test
@@ -750,7 +750,7 @@ public class AuditServiceImplTest {
 
         //then
         assertThatPromise(promise).failedWithException().isInstanceOf(BadRequestException.class);
-        verifyZeroInteractions(otherAuditEventHandler);
+        verifyNoInteractions(otherAuditEventHandler);
     }
 
     @Test

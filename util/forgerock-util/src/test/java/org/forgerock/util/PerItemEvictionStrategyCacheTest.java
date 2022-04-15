@@ -31,7 +31,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -184,7 +184,7 @@ public class PerItemEvictionStrategyCacheTest {
     @Test
     public void shouldNotScheduleExpirationWhenTimeoutIsUnlimited() throws Exception {
         cache.getValue(42, callable(), expire(UNLIMITED));
-        verifyZeroInteractions(executorService);
+        verifyNoInteractions(executorService);
     }
 
     @DataProvider

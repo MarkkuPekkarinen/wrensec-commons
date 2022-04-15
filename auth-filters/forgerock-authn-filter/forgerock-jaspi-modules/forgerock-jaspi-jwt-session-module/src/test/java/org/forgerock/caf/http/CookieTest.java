@@ -17,7 +17,6 @@
 package org.forgerock.caf.http;
 
 import org.mockito.ArgumentCaptor;
-import org.mockito.Matchers;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -64,7 +63,7 @@ public class CookieTest {
         addCookie(cookie, response);
 
         //Then
-        verify(response, never()).addCookie(Matchers.<javax.servlet.http.Cookie>anyObject());
+        verify(response, never()).addCookie(any(javax.servlet.http.Cookie.class));
         ArgumentCaptor<String> cookieCaptor = ArgumentCaptor.forClass(String.class);
         verify(response).addHeader(eq("Set-Cookie"), cookieCaptor.capture());
         assertThat(cookieCaptor.getValue()).contains("COOKIE_NAME=COOKIE_VALUE;", "Version=1;",

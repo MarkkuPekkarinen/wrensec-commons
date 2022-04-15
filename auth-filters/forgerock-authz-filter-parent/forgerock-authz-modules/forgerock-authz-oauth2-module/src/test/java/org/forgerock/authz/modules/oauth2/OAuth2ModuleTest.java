@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.testng.Assert.assertTrue;
 
@@ -198,7 +198,7 @@ public class OAuth2ModuleTest {
         //Then
         assertTrue(promise.isDone());
         assertTrue(promise.getOrThrowUninterruptibly().isAuthorized());
-        verifyZeroInteractions(cache);
+        verifyNoInteractions(cache);
     }
 
     @Test
@@ -246,7 +246,7 @@ public class OAuth2ModuleTest {
 
         //Then
         verify(tokenValidator, times(2)).validate("ACCESS_TOKEN");
-        verifyZeroInteractions(cache);
+        verifyNoInteractions(cache);
     }
 
     @Test (expectedExceptions = AuthorizationException.class)
