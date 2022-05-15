@@ -1,3 +1,0 @@
-export MAVEN_PACKAGE="forgerock-commons"
-export BINTRAY_PACKAGE="wrensec-commons"
-export JFROG_PACKAGE="org/forgerock/commons"

@@ -101,3 +101,6 @@ node_modules/
 
 # Logs
 *.log
+
+# VSCode
+.vscode
