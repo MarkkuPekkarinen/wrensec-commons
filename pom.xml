@@ -22,7 +22,7 @@
      <groupId>org.wrensecurity.commons</groupId>
      <artifactId>commons-bom</artifactId>
      <relativePath>commons-bom/pom.xml</relativePath>
-     <version>22.2.0-SNAPSHOT</version>
+     <version>22.3.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>commons-parent</artifactId>
@@ -47,6 +47,13 @@
     <system>GitHub Issues</system>
     <url>https://github.com/WrenSecurity/wrensec-commons/issues</url>
   </issueManagement>
+
+  <scm>
+    <url>https://github.com/WrenSecurity/wrensec-commons</url>
+    <connection>scm:git:git://github.com/WrenSecurity/wrensec-commons.git</connection>
+    <developerConnection>scm:git:git@github.com:WrenSecurity/wrensec-commons.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
   <modules>
     <module>commons-bom</module>
