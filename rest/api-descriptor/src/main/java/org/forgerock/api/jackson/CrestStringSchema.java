@@ -30,8 +30,8 @@ import javax.validation.ValidationException;
 import javax.xml.bind.DatatypeConverter;
 
 import org.forgerock.api.enums.ReadPolicy;
-import org.forgerock.guava.common.net.InetAddresses;
-import org.forgerock.guava.common.net.InternetDomainName;
+import org.wrensecurity.guava.common.net.InetAddresses;
+import org.wrensecurity.guava.common.net.InternetDomainName;
 import org.forgerock.json.JsonValue;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

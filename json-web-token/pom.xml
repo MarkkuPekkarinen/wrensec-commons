@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>commons-parent</artifactId>
-        <version>22.3.0-SNAPSHOT</version>
+        <version>22.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>json-web-token</artifactId>
@@ -58,8 +58,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.forgerock.commons.guava</groupId>
-            <artifactId>forgerock-guava-base</artifactId>
+            <groupId>org.wrensecurity.commons.guava</groupId>
+            <artifactId>wrensec-guava-base</artifactId>
         </dependency>
 
         <dependency>

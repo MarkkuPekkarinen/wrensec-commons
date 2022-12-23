@@ -30,8 +30,8 @@ import java.lang.reflect.Modifier;
 /**
  * Utility reflection methods focussed on constructors, modelled after {@link MemberUtils}.
  *
- * <h3>Known Limitations</h3>
- * <h4>Accessing Public Constructors In A Default Access Superclass</h4>
+ * <h2>Known Limitations</h2>
+ * <h3>Accessing Public Constructors In A Default Access Superclass</h3>
  * <p>There is an issue when invoking public constructors contained in a default access superclass.
  * Reflection locates these constructors fine and correctly assigns them as public.
  * However, an <code>IllegalAccessException</code> is thrown if the constructors is invoked.</p>

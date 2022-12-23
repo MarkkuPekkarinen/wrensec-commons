@@ -15,7 +15,7 @@
  */
 package org.forgerock.audit.handlers.splunk;
 
-import static org.forgerock.guava.common.base.Strings.isNullOrEmpty;
+import static org.wrensecurity.guava.common.base.Strings.isNullOrEmpty;
 import static org.forgerock.http.handler.HttpClientHandler.OPTION_LOADER;
 import static org.forgerock.json.resource.Responses.newResourceResponse;
 import static org.forgerock.util.CloseSilentlyFunction.closeSilently;

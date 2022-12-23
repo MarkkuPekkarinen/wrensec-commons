@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-rest</artifactId>
-        <version>22.3.0-SNAPSHOT</version>
+        <version>22.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>json-resource-http</artifactId>
@@ -72,8 +72,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.forgerock.commons.guava</groupId>
-            <artifactId>forgerock-guava-cache</artifactId>
+            <groupId>org.wrensecurity.commons.guava</groupId>
+            <artifactId>wrensec-guava-cache</artifactId>
         </dependency>
 
         <dependency>
@@ -104,7 +104,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
             <scope>test</scope>
         </dependency>
 

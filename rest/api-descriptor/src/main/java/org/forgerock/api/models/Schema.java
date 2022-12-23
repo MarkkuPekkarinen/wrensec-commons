@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.forgerock.api.jackson.JacksonUtils;
-import org.forgerock.guava.common.base.Strings;
+import org.wrensecurity.guava.common.base.Strings;
 import org.forgerock.json.JsonValue;
 import org.forgerock.util.Reject;
 

@@ -16,7 +16,7 @@
 
 package org.forgerock.selfservice.stages.reset;
 
-import static org.forgerock.guava.common.base.Strings.isNullOrEmpty;
+import static org.wrensecurity.guava.common.base.Strings.isNullOrEmpty;
 import static org.forgerock.selfservice.stages.CommonStateFields.USER_ID_FIELD;
 
 import org.forgerock.json.JsonPointer;

@@ -21,32 +21,25 @@
     <parent>
         <groupId>org.wrensecurity</groupId>
         <artifactId>wrensec-parent</artifactId>
-        <version>3.3.0</version>
+        <version>4.0.0</version>
         <relativePath />
     </parent>
 
     <groupId>org.wrensecurity.commons</groupId>
     <artifactId>commons-bom</artifactId>
-    <version>22.3.0-SNAPSHOT</version>
+    <version>22.5.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Wren Security Common Bill Of Materials</name>
     <description>
         Provides a list of common dependencies which are known to be compatible with each other.
     </description>
-    <url>https://www.wrensecurity.org</url>
+    <url>https://wrensecurity.org</url>
 
     <properties>
-        <pgpWhitelistArtifact>org.wrensecurity:wrensec-pgp-whitelist:1.5.6</pgpWhitelistArtifact>
-
-        <!-- Parent plugin version overrides -->
-        <mavenReleasePluginVersion>3.0.0-M6</mavenReleasePluginVersion>
-
-        <!-- Third party components versions -->
-        <i18nFrameworkVersion>1.4.3</i18nFrameworkVersion>
         <jodaTime.version>2.10.9</jodaTime.version>
         <assertj.version>3.19.0</assertj.version>
-        <forgerock-guava.version>18.0.4</forgerock-guava.version>
+        <wrensec-guava.version>18.0.5</wrensec-guava.version>
         <jaxb-osgi.version>2.3.3</jaxb-osgi.version>
         <activation.version>2.0.0</activation.version>
         <jackson.version>2.12.1</jackson.version>
@@ -55,56 +48,8 @@
         <slf4j.version>1.7.30</slf4j.version>
         <testng.version>7.3.0</testng.version>
         <swagger.version>1.6.2</swagger.version>
-        <apache-httpcore.version>4.4.14</apache-httpcore.version>
-        <apache-httpclient.version>4.5.13</apache-httpclient.version>
-        <apache-httpasyncclient.version>4.1.4</apache-httpasyncclient.version>
         <jsr305.version>3.0.2</jsr305.version>
     </properties>
-
-    <repositories>
-        <!-- Needed to retrieve parent POM -->
-        <repository>
-            <id>wrensecurity-releases</id>
-            <name>Wren Security Release Repository</name>
-            <url>https://wrensecurity.jfrog.io/wrensecurity/releases</url>
-
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-
-        <!-- Needed to retrieve parent POM -->
-        <repository>
-            <id>wrensecurity-snapshots</id>
-            <name>Wren Security Snapshot Repository</name>
-            <url>https://wrensecurity.jfrog.io/wrensecurity/snapshots</url>
-
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <!-- TODO: Move into `wrensec-parent` -->
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>clirr-maven-plugin</artifactId>
-                    <version>${clirrPluginVersion}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 
     <dependencyManagement>
         <dependencies>
@@ -156,6 +101,32 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>27.0.1-android</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.errorprone</groupId>
+                        <artifactId>error_prone_annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>listenablefuture</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.j2objc</groupId>
+                        <artifactId>j2objc-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-compat-qual</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>animal-sniffer-annotations</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Override version managed by testng to version required by jackson-dataformat-yaml -->
@@ -283,101 +254,101 @@
                 <version>${jsr305.version}</version>
             </dependency>
 
-            <!-- ForgeRock Guava dependency -->
+            <!-- Wren Security Guava dependency -->
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-all</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-all</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-annotations</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-annotations</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-base</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-base</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-cache</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-cache</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-collect</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-collect</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-concurrent</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-concurrent</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-escape</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-escape</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-eventbus</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-eventbus</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-hash</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-hash</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-io</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-io</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-math</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-math</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-net</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-net</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-primitives</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-primitives</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-reflect</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-reflect</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.guava</groupId>
-                <artifactId>forgerock-guava-xml</artifactId>
-                <version>${forgerock-guava.version}</version>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-xml</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
 
             <!-- ForgeRock Util dependencies -->
@@ -518,9 +489,9 @@
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons</groupId>
+                <groupId>org.wrensecurity.commons</groupId>
                 <artifactId>i18n-core</artifactId>
-                <version>${i18nFrameworkVersion}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- ForgeRock Auth filters dependencies -->

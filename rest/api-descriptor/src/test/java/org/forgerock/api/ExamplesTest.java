@@ -22,8 +22,8 @@ import static org.forgerock.api.jackson.JacksonUtils.*;
 import java.io.File;
 import java.io.FilenameFilter;
 
-import org.forgerock.guava.common.base.Charsets;
-import org.forgerock.guava.common.io.Files;
+import org.wrensecurity.guava.common.base.Charsets;
+import org.wrensecurity.guava.common.io.Files;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

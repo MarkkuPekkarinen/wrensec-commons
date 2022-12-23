@@ -27,8 +27,8 @@ import java.util.Map;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 
-import org.forgerock.guava.common.collect.ArrayListMultimap;
-import org.forgerock.guava.common.collect.Multimap;
+import org.wrensecurity.guava.common.collect.ArrayListMultimap;
+import org.wrensecurity.guava.common.collect.Multimap;
 import org.forgerock.json.schema.validator.validators.AnyTypeValidator;
 import org.forgerock.json.schema.validator.validators.ArrayTypeValidator;
 import org.forgerock.json.schema.validator.validators.BooleanTypeValidator;

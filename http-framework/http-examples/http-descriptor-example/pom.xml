@@ -21,7 +21,7 @@
     <parent>
         <artifactId>chf-http-examples</artifactId>
         <groupId>org.wrensecurity.http</groupId>
-        <version>22.3.0-SNAPSHOT</version>
+        <version>22.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>http-descriptor-example</artifactId>
@@ -36,7 +36,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
 
         <dependency>

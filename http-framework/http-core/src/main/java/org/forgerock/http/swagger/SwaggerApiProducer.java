@@ -17,7 +17,7 @@ package org.forgerock.http.swagger;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static org.forgerock.guava.common.base.Strings.isNullOrEmpty;
+import static org.wrensecurity.guava.common.base.Strings.isNullOrEmpty;
 import static org.forgerock.http.util.Paths.addLeadingSlash;
 import static org.forgerock.http.util.Paths.removeTrailingSlash;
 
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.forgerock.guava.common.base.Function;
+import org.wrensecurity.guava.common.base.Function;
 import org.forgerock.http.ApiProducer;
 import org.forgerock.http.header.AcceptApiVersionHeader;
 import org.forgerock.http.routing.Version;

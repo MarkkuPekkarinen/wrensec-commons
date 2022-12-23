@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.wrensecurity.http</groupId>
     <artifactId>forgerock-http-framework-parent</artifactId>
-    <version>22.3.0-SNAPSHOT</version>
+    <version>22.5.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>chf-http-core</artifactId>
@@ -70,8 +70,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.forgerock.commons.guava</groupId>
-      <artifactId>forgerock-guava-collect</artifactId>
+      <groupId>org.wrensecurity.commons.guava</groupId>
+      <artifactId>wrensec-guava-collect</artifactId>
     </dependency>
 
     <dependency>

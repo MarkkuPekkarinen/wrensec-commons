@@ -16,71 +16,133 @@
    Portions Copyright 2017-2018 Wren Security.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-     <groupId>org.wrensecurity.commons</groupId>
-     <artifactId>commons-bom</artifactId>
-     <relativePath>commons-bom/pom.xml</relativePath>
-     <version>22.3.0-SNAPSHOT</version>
-  </parent>
+    <parent>
+        <groupId>org.wrensecurity</groupId>
+        <artifactId>wrensec-parent</artifactId>
+        <version>4.0.0</version>
+        <relativePath />
+    </parent>
 
-  <artifactId>commons-parent</artifactId>
-  <packaging>pom</packaging>
+    <groupId>org.wrensecurity.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>22.5.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-  <name>Wren Security Commons - Parent</name>
-  <description>
-    This group modules includes the Wren Security common components.
-  </description>
-  <url>https://github.com/WrenSecurity/wrensec-commons</url>
-
-  <licenses>
-    <license>
-      <name>CDDL-1.0</name>
-      <url>http://opensource.org/licenses/CDDL-1.0</url>
-      <comments>Common Development and Distribution License (CDDL) 1.0</comments>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/WrenSecurity/wrensec-commons/issues</url>
-  </issueManagement>
-
-  <scm>
+    <name>Wren Security Commons - Parent</name>
+    <description>
+        This group modules includes the Wren Security common components.
+    </description>
     <url>https://github.com/WrenSecurity/wrensec-commons</url>
-    <connection>scm:git:git://github.com/WrenSecurity/wrensec-commons.git</connection>
-    <developerConnection>scm:git:git@github.com:WrenSecurity/wrensec-commons.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
 
-  <modules>
-    <module>commons-bom</module>
-    <module>audit</module>
-    <module>auth-filters</module>
-    <module>guice</module>
-    <module>http-framework</module>
-    <module>json-crypto</module>
-    <module>json-ref</module>
-    <module>json-schema</module>
-    <module>json-web-token</module>
-    <module>rest</module>
-    <module>self-service</module>
-    <module>util</module>
-    <module>security</module>
-  </modules>
+    <licenses>
+        <license>
+            <name>CDDL-1.0</name>
+            <url>http://opensource.org/licenses/CDDL-1.0</url>
+            <comments>Common Development and Distribution License (CDDL) 1.0</comments>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/WrenSecurity/wrensec-commons/issues</url>
+    </issueManagement>
 
-        <configuration>
-          <additionalparam>-Xdoclint:none</additionalparam>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+    <scm>
+        <url>https://github.com/WrenSecurity/wrensec-commons</url>
+        <connection>scm:git:git://github.com/WrenSecurity/wrensec-commons.git</connection>
+        <developerConnection>scm:git:git@github.com:WrenSecurity/wrensec-commons.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>wrensecurity-releases</id>
+            <name>Wren Security Release Repository</name>
+            <url>https://wrensecurity.jfrog.io/wrensecurity/releases</url>
+
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+
+        <repository>
+            <id>wrensecurity-snapshots</id>
+            <name>Wren Security Snapshot Repository</name>
+            <url>https://wrensecurity.jfrog.io/wrensecurity/snapshots</url>
+
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <properties>
+        <pgpVerifyKeysVersion>1.7.1</pgpVerifyKeysVersion>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.wrensecurity.commons</groupId>
+                <artifactId>commons-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>commons-bom</module>
+        <module>audit</module>
+        <module>auth-filters</module>
+        <module>doc-maven</module>
+        <module>guice</module>
+        <module>http-framework</module>
+        <module>i18n</module>
+        <module>json-crypto</module>
+        <module>json-ref</module>
+        <module>json-schema</module>
+        <module>json-web-token</module>
+        <module>rest</module>
+        <module>self-service</module>
+        <module>util</module>
+        <module>security</module>
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- TODO: Move into `wrensec-parent` -->
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>clirr-maven-plugin</artifactId>
+                    <version>${clirrPluginVersion}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

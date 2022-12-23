@@ -22,7 +22,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 import org.forgerock.api.ApiValidationException;
-import org.forgerock.guava.common.base.Strings;
+import org.wrensecurity.guava.common.base.Strings;
 import org.forgerock.util.i18n.LocalizableString;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

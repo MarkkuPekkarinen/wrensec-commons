@@ -23,7 +23,7 @@ import java.security.KeyPair;
 import java.util.Date;
 import java.util.Map;
 
-import org.forgerock.guava.common.base.Optional;
+import org.wrensecurity.guava.common.base.Optional;
 import org.forgerock.json.JsonValue;
 import org.forgerock.json.jose.builders.JwtBuilderFactory;
 import org.forgerock.json.jose.builders.JwtClaimsSetBuilder;

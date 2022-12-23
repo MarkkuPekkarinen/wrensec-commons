@@ -19,7 +19,7 @@ package org.forgerock.selfservice.example;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
-import org.forgerock.guava.common.base.Optional;
+import org.wrensecurity.guava.common.base.Optional;
 import org.forgerock.json.jose.jws.SigningManager;
 import org.forgerock.json.jose.jws.handlers.SigningHandler;
 import org.forgerock.selfservice.core.snapshot.SnapshotTokenConfig;

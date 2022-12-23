@@ -22,7 +22,7 @@ import static org.forgerock.json.JsonValue.*;
 import java.security.Key;
 import java.security.KeyPair;
 
-import org.forgerock.guava.common.base.Optional;
+import org.wrensecurity.guava.common.base.Optional;
 import org.forgerock.json.JsonValue;
 import org.forgerock.json.jose.builders.JwtBuilderFactory;
 import org.forgerock.json.jose.helper.KeysHelper;

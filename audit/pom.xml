@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>commons-parent</artifactId>
-        <version>22.3.0-SNAPSHOT</version>
+        <version>22.5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-audit</artifactId>
@@ -35,7 +35,6 @@
 
     <properties>
         <supercsv.version>2.4.0</supercsv.version>
-        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <javax.inject.version>1_3</javax.inject.version>
         <hikaricp.version>4.0.1</hikaricp.version>
     </properties>
@@ -79,7 +78,6 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
-                <version>${javax.servlet-api.version}</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
