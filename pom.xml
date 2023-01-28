@@ -108,6 +108,7 @@
         <module>commons-bom</module>
         <module>audit</module>
         <module>auth-filters</module>
+        <module>bloomfilter</module>
         <module>doc-maven</module>
         <module>guice</module>
         <module>http-framework</module>
