@@ -28,7 +28,7 @@ import java.util.Collection;
  * a database) or where some level of false positives is tolerable. The expected usage pattern for the former case
  * would be something like the following psuedo-code:
  * <pre>
- *     BloomFilter&lt;T&gt filter = ...;
+ *     BloomFilter&lt;T&gt; filter = ...;
  *     Set&lt;T&gt; expensiveSet = ...; // e.g. database, web-service
  *     if (filter.mightContain(element)) {
  *         // Perform the more expensive check to be sure
