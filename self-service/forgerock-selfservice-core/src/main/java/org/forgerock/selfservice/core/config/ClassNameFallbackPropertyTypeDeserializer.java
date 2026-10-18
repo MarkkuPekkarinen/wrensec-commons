@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2023 Wren Security
  */
 package org.forgerock.selfservice.core.config;
 
@@ -59,9 +60,9 @@ class ClassNameFallbackPropertyTypeDeserializer extends AsPropertyTypeDeserializ
      */
     @Override
     protected Object _deserializeTypedUsingDefaultImpl(JsonParser jsonParser, DeserializationContext context,
-            TokenBuffer tokenBuffer) throws IOException {
+            TokenBuffer tokenBuffer, String priorFailureMsg) throws IOException {
         try {
-            return super._deserializeTypedUsingDefaultImpl(jsonParser, context, tokenBuffer);
+            return super._deserializeTypedUsingDefaultImpl(jsonParser, context, tokenBuffer, priorFailureMsg);
         } catch (JsonMappingException e) {
             // fallback
             if (tokenBuffer != null) {

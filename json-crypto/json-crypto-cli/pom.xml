@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>json-crypto</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>json-crypto-cli</artifactId>
@@ -39,6 +39,7 @@
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>security</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

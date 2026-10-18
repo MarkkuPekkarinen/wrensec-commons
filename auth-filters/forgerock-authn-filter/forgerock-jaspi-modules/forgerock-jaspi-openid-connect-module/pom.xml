@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-jaspi-modules</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-jaspi-openid-connect-module</artifactId>
@@ -57,11 +57,13 @@
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-web-token</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>security</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

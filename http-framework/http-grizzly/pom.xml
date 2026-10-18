@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.wrensecurity.http</groupId>
     <artifactId>forgerock-http-framework-parent</artifactId>
-    <version>22.6.0-SNAPSHOT</version>
+    <version>23.0.4-SNAPSHOT</version>
   </parent>
 
   <artifactId>chf-http-grizzly</artifactId>
@@ -51,12 +51,13 @@
     <dependency>
       <groupId>org.glassfish.grizzly</groupId>
       <artifactId>grizzly-http-server</artifactId>
-      <version>2.3.28</version>
+      <version>4.0.2</version>
     </dependency>
 
     <dependency>
       <groupId>org.wrensecurity.http</groupId>
       <artifactId>chf-http-core</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>

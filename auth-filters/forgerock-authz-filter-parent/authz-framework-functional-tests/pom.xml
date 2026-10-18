@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-authz-filter-parent</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>authz-framework-functional-tests</artifactId>
@@ -105,18 +105,18 @@
 
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.7.0</version>
+                <artifactId>cargo-maven3-plugin</artifactId>
+                <version>1.10.20</version>
 
                 <configuration>
                     <!-- Container configuration -->
                     <container>
-                        <containerId>tomcat7x</containerId>
+                        <containerId>tomcat10x</containerId>
 
                         <artifactInstaller>
                             <groupId>org.apache.tomcat</groupId>
                             <artifactId>tomcat</artifactId>
-                            <version>7.0.47</version>
+                            <version>10.1.42</version>
                             <extractDir>${project.build.directory}/extracts</extractDir>
                         </artifactInstaller>
                     </container>
@@ -200,23 +200,25 @@
         <dependency>
             <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-http-servlet</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource-http</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- Module Dependencies -->

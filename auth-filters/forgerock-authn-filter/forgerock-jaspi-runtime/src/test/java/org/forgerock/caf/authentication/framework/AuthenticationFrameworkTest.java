@@ -12,7 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2013-2016 ForgeRock AS.
- * Portions Copyright 2018 Wren Security.
+ * Portions Copyright 2018-2025 Wren Security.
  */
 
 package org.forgerock.caf.authentication.framework;
@@ -24,9 +24,11 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.testng.Assert.assertEquals;
 
+import java.security.Principal;
 import javax.security.auth.Subject;
-import javax.security.auth.message.AuthStatus;
+import jakarta.security.auth.message.AuthStatus;
 
 import org.assertj.core.api.Assertions;
 import org.forgerock.caf.authentication.api.AsyncServerAuthContext;
@@ -44,6 +46,8 @@ import org.forgerock.services.context.RootContext;
 import org.forgerock.util.promise.NeverThrowsException;
 import org.forgerock.util.promise.Promise;
 import org.forgerock.util.promise.Promises;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.slf4j.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -349,4 +353,59 @@ public class AuthenticationFrameworkTest {
         verify(authContext).secureResponse(any(MessageContext.class), eq(serviceSubject));
         verify(authContext).cleanSubject(any(MessageContext.class), any(Subject.class));
     }
+
+    @Test
+    public void whenProcessingResultShouldSetPrincipalFromMessageContext() {
+        String principal = "john.doe";
+        Context context = mockContext();
+        Request request = new Request();
+        Handler next = mockHandler(request, Promises.<Response, NeverThrowsException>newResultPromise(successfulResponse));
+        mockAuthContext(Promises.<AuthStatus, AuthenticationException>newResultPromise(AuthStatus.SUCCESS),
+                Promises.<AuthStatus, AuthenticationException>newResultPromise(AuthStatus.SEND_SUCCESS));
+        given(authContext.validateRequest(any(MessageContext.class), any(Subject.class), eq(serviceSubject))).willAnswer(new Answer<Object>() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                MessageContext context = (MessageContext) invocation.getArgument(0);
+                context.getRequestContextMap().put(AuthenticationFramework.ATTRIBUTE_AUTH_PRINCIPAL, principal);
+                return Promises.<AuthStatus, AuthenticationException>newResultPromise(AuthStatus.SUCCESS);
+            }
+        });
+
+        Promise<Response, NeverThrowsException> promise = runtime.processMessage(context, request, next);
+
+        assertThat(promise).succeeded();
+        AttributesContext attributesContext = context.asContext(AttributesContext.class);
+        assertEquals(attributesContext.getAttributes().get(AuthenticationFramework.ATTRIBUTE_AUTH_PRINCIPAL), principal);
+    }
+
+    @Test
+    public void whenProcessingResultShouldSetPrincipalFromClientSubject() {
+        String principal = "john.doe";
+        Context context = mockContext();
+        Request request = new Request();
+        Handler next = mockHandler(request, Promises.<Response, NeverThrowsException>newResultPromise(successfulResponse));
+        mockAuthContext(Promises.<AuthStatus, AuthenticationException>newResultPromise(AuthStatus.SUCCESS),
+                Promises.<AuthStatus, AuthenticationException>newResultPromise(AuthStatus.SEND_SUCCESS));
+        given(authContext.validateRequest(any(MessageContext.class), any(Subject.class), eq(serviceSubject))).willAnswer(new Answer<Object>() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Subject subject = (Subject) invocation.getArgument(1);
+                subject.getPrincipals().add(new Principal() {
+                    @Override
+                    public String getName() {
+                        return principal;
+                    }
+
+                });
+                return Promises.<AuthStatus, AuthenticationException>newResultPromise(AuthStatus.SUCCESS);
+            }
+        });
+
+        Promise<Response, NeverThrowsException> promise = runtime.processMessage(context, request, next);
+
+        assertThat(promise).succeeded();
+        AttributesContext attributesContext = context.asContext(AttributesContext.class);
+        assertEquals(attributesContext.getAttributes().get(AuthenticationFramework.ATTRIBUTE_AUTH_PRINCIPAL), principal);
+    }
+
 }

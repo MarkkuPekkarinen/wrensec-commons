@@ -13,7 +13,7 @@
     information: "Portions copyright [year] [name of copyright owner]".
 
     Copyright 2015 ForgeRock AS.
-    Portions Copyright 2017-2021 Wren Security.
+    Portions Copyright 2017-2026 Wren Security.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -21,7 +21,7 @@
     <parent>
         <artifactId>forgerock-selfservice</artifactId>
         <groupId>org.wrensecurity.commons</groupId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-selfservice-example</artifactId>
@@ -65,21 +65,25 @@
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-http-servlet</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource-http</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-util</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -151,19 +155,26 @@
             </plugin>
 
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.14.v20181114</version>
+                <groupId>org.eclipse.jetty.ee11</groupId>
+                <artifactId>jetty-ee11-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
 
                 <configuration>
-                    <scanIntervalSeconds>2</scanIntervalSeconds>
+                    <scan>2</scan>
+                    <supportedPackagings>jar</supportedPackagings>
 
                     <webApp>
-                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
-                            <resourcesAsCSV>${project.build.directory}/webapp</resourcesAsCSV>
-                        </baseResource>
+                        <resourceBases>
+                            <resourceBase>${project.build.directory}/webapp</resourceBase>
+                        </resourceBases>
                         <contextPath>/example</contextPath>
                     </webApp>
+
+                    <scanTargetPatterns>
+                        <scanTargetPattern>
+                            <directory>${project.build.directory}/webapp</directory>
+                        </scanTargetPattern>
+                    </scanTargetPatterns>
 
                     <httpConnector>
                         <port>9999</port>

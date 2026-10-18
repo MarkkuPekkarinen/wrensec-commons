@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2013-2016 ForgeRock AS.
+ * Portions Copyright 2025 Wren Security.
  */
 
 package org.forgerock.caf.authentication.framework;
@@ -29,12 +30,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import javax.security.auth.Subject;
-import javax.security.auth.message.AuthStatus;
+import jakarta.security.auth.message.AuthStatus;
 
 import org.forgerock.caf.authentication.api.AsyncServerAuthContext;
 import org.forgerock.caf.authentication.api.AuthenticationException;
 import org.forgerock.caf.authentication.api.MessageContext;
+import org.forgerock.caf.authentication.api.MessageInfoContext;
 import org.forgerock.http.Handler;
 import org.forgerock.http.protocol.Request;
 import org.forgerock.http.protocol.Response;
@@ -86,7 +89,6 @@ public final class AuthenticationFramework {
      */
     public static final String ATTRIBUTE_REQUEST_ID = "org.forgerock.authentication.request.id";
 
-    @SuppressWarnings("unchecked")
     static final Collection<Class<?>> REQUIRED_MESSAGE_TYPES_SUPPORT =
             new HashSet<Class<?>>(Arrays.asList(Request.class, Response.class));
 
@@ -161,13 +163,7 @@ public final class AuthenticationFramework {
                     AuthenticationException exception = new AuthenticationFailedException();
                     return Promises.newExceptionPromise(exception);
                 } else if (isSuccess(authStatus)) {
-                    String principalName = null;
-                    for (Principal principal : clientSubject.getPrincipals()) {
-                        if (principal.getName() != null) {
-                            principalName = principal.getName();
-                            break;
-                        }
-                    }
+                    String principalName = resolvePrincipalName(context, clientSubject);
                     Map<String, Object> contextMap =
                             getMap(context.getRequestContextMap(), AuthenticationFramework.ATTRIBUTE_AUTH_CONTEXT);
                     logger.debug("Setting principal name, {}, and {} context values on to the request.",
@@ -250,6 +246,26 @@ public final class AuthenticationFramework {
             containingMap.put(key, map);
         }
         return map;
+    }
+
+    /**
+     * Resolve the principal name of the user. The principal name is resolved from the context map
+     * of the {@link MessageInfoContext}. When no value is specified in the context map, the principal name
+     * is resolved from the client subject principal.
+     * @param context Request context.
+     * @param clientSubject Client subject.
+     * @return Resolved principal name or null if no value could be resolved.
+     */
+    private String resolvePrincipalName(final MessageContext context, final Subject clientSubject) {
+        String principal = (String) context.getRequestContextMap().get(ATTRIBUTE_AUTH_PRINCIPAL);
+        if (principal != null) {
+            return principal;
+        }
+        return clientSubject.getPrincipals().stream()
+                .map(Principal::getName)
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

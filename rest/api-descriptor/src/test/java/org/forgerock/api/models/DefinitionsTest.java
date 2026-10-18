@@ -12,13 +12,13 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2023 Wren Security
  */
 
 package org.forgerock.api.models;
 
 import static org.assertj.core.api.Assertions.*;
 
-import org.forgerock.json.JsonValue;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -26,7 +26,7 @@ public class DefinitionsTest {
 
     private static final Schema OBJECT_SCHEMA = Schema.schema().type(Object.class).build();
     private static final Schema OTHER_EQUAL_SCHEMA = Schema.schema().type(Object.class).build();
-    private static final Schema OTHER_NON_EQUAL_SCHEMA = Schema.schema().type(JsonValue.class).build();
+    private static final Schema OTHER_NON_EQUAL_SCHEMA = Schema.schema().type(String.class).build();
 
 
     @DataProvider(name = "putValidationData")

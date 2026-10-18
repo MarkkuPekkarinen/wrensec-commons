@@ -98,6 +98,7 @@ test-output/
 
 # NodeJS modules
 node_modules/
+node/
 
 # Logs
 *.log

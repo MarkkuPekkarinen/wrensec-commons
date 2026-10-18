@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-authn-filter</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-jaspi-runtime</artifactId>
@@ -56,18 +56,20 @@
         </dependency>
 
         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.security.auth.message</artifactId>
+            <groupId>jakarta.security.auth.message</groupId>
+            <artifactId>jakarta.security.auth.message-api</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-http-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency> <!-- Required for JsonValue and ResourceException -->
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency> <!-- Required for MediaType in FailureResponseHandler -->

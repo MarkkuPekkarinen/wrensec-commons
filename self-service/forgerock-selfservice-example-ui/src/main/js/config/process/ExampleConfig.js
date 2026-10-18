@@ -14,8 +14,6 @@
  * Copyright 2017 ForgeRock AS.
  */
 
-/*global define*/
-
 define([
     "org/forgerock/selfservice/ui/Constants"
 ], function(Constants) {

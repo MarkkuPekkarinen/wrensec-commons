@@ -13,7 +13,7 @@
    information: "Portions copyright [year] [name of copyright owner]".
 
    Copyright 2015-2016 ForgeRock AS.
-   Portions Copyright 2017-2018 Wren Security.
+   Portions Copyright 2017-2026 Wren Security.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -21,13 +21,13 @@
     <parent>
         <groupId>org.wrensecurity</groupId>
         <artifactId>wrensec-parent</artifactId>
-        <version>4.0.0</version>
+        <version>4.2.0</version>
         <relativePath />
     </parent>
 
     <groupId>org.wrensecurity.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>22.6.0-SNAPSHOT</version>
+    <version>23.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Wren Security Commons - Parent</name>
@@ -54,7 +54,7 @@
         <url>https://github.com/WrenSecurity/wrensec-commons</url>
         <connection>scm:git:git://github.com/WrenSecurity/wrensec-commons.git</connection>
         <developerConnection>scm:git:git@github.com:WrenSecurity/wrensec-commons.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>23.0.3</tag>
     </scm>
 
     <repositories>
@@ -88,28 +88,202 @@
     </repositories>
 
     <properties>
-        <pgpVerifyKeysVersion>1.7.1</pgpVerifyKeysVersion>
-        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <pgpVerifyKeysVersion>1.9.12</pgpVerifyKeysVersion>
+
+        <activation-api.version>2.1.4</activation-api.version>
+        <assertj.version>3.27.7</assertj.version>
+        <inject-api.version>2.0.1</inject-api.version>
+        <jackson.version>2.15.2</jackson.version>
+        <jaxb-osgi.version>3.0.2</jaxb-osgi.version>
+        <jetty.version>12.1.6</jetty.version>
+        <jodaTime.version>2.10.9</jodaTime.version>
+        <jsr305.version>3.0.2</jsr305.version>
+        <jxrPluginVersion>3.3.2</jxrPluginVersion>
+        <mail-api.version>2.1.5</mail-api.version>
+        <mockito.version>4.4.0</mockito.version>
+        <servlet-api.version>6.1.0</servlet-api.version>
+        <slf4j.version>2.0.17</slf4j.version>
+        <swagger.version>2.2.43</swagger.version>
+        <testng.version>7.8.0</testng.version>
+        <wrensec-guava.version>18.0.5</wrensec-guava.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wrensecurity.commons</groupId>
-                <artifactId>commons-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson.version}</version>
                 <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${jsr305.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-osgi</artifactId>
+                <version>${jaxb-osgi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-core-jakarta</artifactId>
+                <version>${swagger.version}</version>
+
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-annotations</artifactId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.dataformat</groupId>
+                        <artifactId>jackson-dataformat-yaml</artifactId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>com.sun.activation</groupId>
+                        <artifactId>jakarta.activation</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-models-jakarta</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+              <groupId>jakarta.activation</groupId>
+              <artifactId>jakarta.activation-api</artifactId>
+              <version>${activation-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.mail</groupId>
+                <artifactId>jakarta.mail-api</artifactId>
+                <version>${mail-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${jodaTime.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-nop</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-base</artifactId>
+                <version>${wrensec-guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-cache</artifactId>
+                <version>${wrensec-guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-collect</artifactId>
+                <version>${wrensec-guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-hash</artifactId>
+                <version>${wrensec-guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-net</artifactId>
+                <version>${wrensec-guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wrensecurity.commons.guava</groupId>
+                <artifactId>wrensec-guava-io</artifactId>
+                <version>${wrensec-guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <distributionManagement>
+        <site>
+            <id>local</id>
+            <url>file:${maven.multiModuleProjectDirectory}/target/deploy/</url>
+        </site>
+    </distributionManagement>
 
     <modules>
         <module>commons-bom</module>
         <module>audit</module>
         <module>auth-filters</module>
         <module>bloomfilter</module>
-        <module>doc-maven</module>
         <module>guice</module>
         <module>http-framework</module>
         <module>i18n</module>
@@ -140,10 +314,75 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
 
-                <configuration>
-                    <additionalparam>-Xdoclint:none</additionalparam>
-                </configuration>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+
+                        <goals>
+                            <goal>javadoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstylePluginVersion}</version>
+
+                <configuration>
+                    <failsOnError>false</failsOnError>
+                </configuration>
+
+                <reportSets>
+                    <reportSet>
+                        <id>aggregate</id>
+                        <inherited>false</inherited>
+
+                        <reports>
+                            <report>checkstyle-aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>${jxrPluginVersion}</version>
+
+                <reportSets>
+                    <reportSet>
+                        <id>default</id>
+
+                        <reports>
+                            <report>jxr-no-fork</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmdPluginVersion}</version>
+
+                <reportSets>
+                    <reportSet>
+                        <id>aggregate</id>
+                        <inherited>false</inherited>
+
+                        <reports>
+                            <!-- execute within the same session to correctly resolve local plugin deps -->
+                            <report>aggregate-pmd-no-fork</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

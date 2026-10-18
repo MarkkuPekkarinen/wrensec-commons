@@ -20,9 +20,9 @@
  * with the fields enclosed by brackets [] replaced by
  * your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
+ *
+ * Portions copyright 2024 Wren Security.
  */
-
-/*global require, window */
 
 require.config({
     map: {
@@ -34,40 +34,32 @@ require.config({
             "UserProfileView": "org/forgerock/commons/ui/user/profile/UserProfileView",
             "LoginDialog": "org/forgerock/commons/ui/common/LoginDialog",
             "RegisterView": "org/forgerock/commons/ui/user/anonymousProcess/SelfRegistrationView",
-            "NavigationFilter" : "org/forgerock/commons/ui/common/components/navigation/filters/RoleFilter",
-            // TODO: Remove this when there are no longer any references to the "underscore" dependency
-            "underscore": "lodash"
+            "NavigationFilter" : "org/forgerock/commons/ui/common/components/navigation/filters/RoleFilter"
         }
     },
     paths: {
-        i18next: "libs/i18next-1.7.3-min",
-        backbone: "libs/backbone-1.1.2-min",
-        "backbone.paginator": "libs/backbone.paginator.min-2.0.2-min",
-        "backbone-relational": "libs/backbone-relational-0.9.0-min",
-        "backgrid": "libs/backgrid.min-0.3.5-min",
-        "backgrid-filter": "libs/backgrid-filter.min-0.3.5-min",
-        "backgrid-paginator": "libs/backgrid-paginator.min-0.3.5-min",
-        lodash: "libs/lodash-3.10.1-min",
-        js2form: "libs/js2form-2.0-769718a",
-        form2js: "libs/form2js-2.0-769718a",
-        spin: "libs/spin-2.0.1-min",
-        jquery: "libs/jquery-2.1.1-min",
-        xdate: "libs/xdate-0.8-min",
-        doTimeout: "libs/jquery.ba-dotimeout-1.0-min",
-        handlebars: "libs/handlebars-4.0.5",
-        moment: "libs/moment-2.8.1-min",
-        bootstrap: "libs/bootstrap-3.3.5-custom",
-        "bootstrap-dialog": "libs/bootstrap-dialog-1.34.4-min",
-        placeholder: "libs/jquery.placeholder-2.0.8"
+        i18next: "libs/i18next",
+        backbone: "libs/backbone",
+        "backbone.paginator": "libs/backbone.paginator",
+        "backbone-relational": "libs/backbone-relational",
+        backgrid: "libs/backgrid",
+        "backgrid-filter": "libs/backgrid-filter",
+        "backgrid-paginator": "libs/backgrid-paginator",
+        lodash: "libs/lodash",
+        js2form: "libs/js2form",
+        form2js: "libs/form2js",
+        spin: "libs/spin",
+        jquery: "libs/jquery",
+        xdate: "libs/xdate",
+        doTimeout: "libs/jquery.ba-dotimeout",
+        handlebars: "libs/handlebars",
+        moment: "libs/moment",
+        bootstrap: "libs/bootstrap",
+        "bootstrap-dialog": "libs/bootstrap-dialog",
+        placeholder: "libs/jquery.placeholder",
+        underscore: "libs/underscore"
     },
-
     shim: {
-        sinon: {
-            exports: "sinon"
-        },
-        underscore: {
-            exports: "_"
-        },
         backbone: {
             deps: ["underscore"],
             exports: "Backbone"
@@ -97,8 +89,8 @@ require.config({
         bootstrap: {
             deps: ["jquery"]
         },
-        'bootstrap-dialog': {
-            deps: ["jquery", "underscore","backbone", "bootstrap"]
+        "bootstrap-dialog": {
+            deps: ["jquery", "underscore", "backbone", "bootstrap"]
         },
         placeholder: {
             deps: ["jquery"]
@@ -109,10 +101,6 @@ require.config({
         doTimeout: {
             deps: ["jquery"],
             exports: "doTimeout"
-        },
-        i18next: {
-            deps: ["jquery", "handlebars"],
-            exports: "i18n"
         },
         moment: {
             exports: "moment"

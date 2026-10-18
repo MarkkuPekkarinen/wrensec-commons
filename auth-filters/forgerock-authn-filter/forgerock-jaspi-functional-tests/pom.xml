@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-authn-filter</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-jaspi-functional-tests</artifactId>
@@ -128,16 +128,19 @@
         <dependency>
             <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-http-servlet</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-http-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource-http</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -156,6 +159,7 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

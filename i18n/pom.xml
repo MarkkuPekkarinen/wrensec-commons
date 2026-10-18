@@ -13,7 +13,7 @@
    information: "Portions copyright [year] [name of copyright owner]".
 
    Copyright 2011 ForgeRock AS.
-   Portions Copyright 2017-2022 Wren Security.
+   Portions Copyright 2017-2026 Wren Security.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>commons-parent</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>i18n-framework</artifactId>
@@ -32,13 +32,6 @@
     <description>
         Common framework for embedding localizable messages in applications.
     </description>
-
-    <properties>
-        <pgpVerifyKeysVersion>1.6.2</pgpVerifyKeysVersion>
-        <testng.version>7.3.0</testng.version>
-        <mockito.version>4.4.0</mockito.version>
-        <assertj.version>3.23.1</assertj.version>
-    </properties>
 
     <modules>
         <module>i18n-maven-plugin</module>
@@ -51,19 +44,18 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -89,5 +81,4 @@
             </plugin>
         </plugins>
     </reporting>
-
 </project>

@@ -12,12 +12,12 @@
     Header, with the fields enclosed by brackets [] replaced by your own identifying
     information: "Portions copyright [year] [name of copyright owner]".
 
-    Copyright 2021 Wren Security
+    Copyright 2021-2025 Wren Security
 -->
-<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
+<site xmlns="http://maven.apache.org/SITE/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd">
     <body>
         <menu ref="reports" inherit="top" />
 
         <menu ref="modules" inherit="top" />
     </body>
-</project>
+</site>

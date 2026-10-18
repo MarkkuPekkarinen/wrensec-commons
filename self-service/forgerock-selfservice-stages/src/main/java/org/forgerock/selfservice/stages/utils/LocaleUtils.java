@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2017 ForgeRock AS.
+ * Portions Copyright 2023 Wren Security.
  */
 
 package org.forgerock.selfservice.stages.utils;
@@ -74,13 +75,15 @@ public final class LocaleUtils {
                 Locale.forLanguageTag(System.getProperty("org.forgerock.selfservice.defaultLocale", "en-US"));
         boolean defaultsAdded = false;
         List<Locale> locales = new ArrayList<>();
-        for (Locale locale : preferredLocales.getLocales()) {
-            if (locale.equals(Locale.ROOT) && !defaultsAdded) {
-                locales.add(defaultLocale);
-                locales.add(Locale.getDefault());
-                defaultsAdded = true;
-            } else if (!locale.equals(Locale.ROOT)) {
-                locales.add(locale);
+        if (preferredLocales != null) {
+            for (Locale locale : preferredLocales.getLocales()) {
+                if (locale.equals(Locale.ROOT) && !defaultsAdded) {
+                    locales.add(defaultLocale);
+                    locales.add(Locale.getDefault());
+                    defaultsAdded = true;
+                } else if (!locale.equals(Locale.ROOT)) {
+                    locales.add(locale);
+                }
             }
         }
         if (!defaultsAdded) {

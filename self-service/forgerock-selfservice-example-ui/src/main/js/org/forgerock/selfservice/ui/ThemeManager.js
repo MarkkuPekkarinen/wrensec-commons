@@ -22,8 +22,6 @@
  * "Portions Copyrighted [year] [name of copyright owner]"
  */
 
-/*global define */
-
 define("org/forgerock/selfservice/ui/ThemeManager", [
     "jquery",
     "underscore",

@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-audit</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-audit-handler-elasticsearch</artifactId>
@@ -37,25 +37,23 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.javax-inject</artifactId>
-        </dependency>
-
         <!-- Wren Security Commons Dependencies -->
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-audit-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-client-apache-async</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -80,18 +78,21 @@
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-test-utils</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource-http</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-audit-json</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 

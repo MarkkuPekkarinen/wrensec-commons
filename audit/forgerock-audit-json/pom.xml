@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-audit</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-audit-json</artifactId>
@@ -45,18 +45,20 @@
 
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jsonSchema</artifactId>
+            <artifactId>jackson-module-jsonSchema-jakarta</artifactId>
         </dependency>
 
         <!-- ForgeRock Commons Dependencies -->
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-audit-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->

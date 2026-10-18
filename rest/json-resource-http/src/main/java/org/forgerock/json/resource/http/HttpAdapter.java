@@ -12,13 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2012-2016 ForgeRock AS.
+ * Portions Copyright 2026 Wren Security
  */
 package org.forgerock.json.resource.http;
 
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static org.forgerock.api.commons.CommonsApi.COMMONS_API_DESCRIPTION;
-import static org.wrensecurity.guava.common.base.Optional.absent;
-import static org.wrensecurity.guava.common.base.Strings.isNullOrEmpty;
 import static org.forgerock.http.util.Paths.addLeadingSlash;
 import static org.forgerock.http.util.Paths.removeTrailingSlash;
 import static org.forgerock.json.resource.Applications.simpleCrestApplication;
@@ -26,7 +25,6 @@ import static org.forgerock.json.resource.Requests.newApiRequest;
 import static org.forgerock.json.resource.ResourcePath.resourcePath;
 import static org.forgerock.json.resource.http.HttpUtils.CONTENT_TYPE_REGEX;
 import static org.forgerock.json.resource.http.HttpUtils.ETAG_ANY;
-import static org.forgerock.json.resource.http.HttpUtils.FIELDS_DELIMITER;
 import static org.forgerock.json.resource.http.HttpUtils.HEADER_IF_MATCH;
 import static org.forgerock.json.resource.http.HttpUtils.HEADER_IF_MODIFIED_SINCE;
 import static org.forgerock.json.resource.http.HttpUtils.HEADER_IF_NONE_MATCH;
@@ -61,30 +59,29 @@ import static org.forgerock.json.resource.http.HttpUtils.getJsonPatchContent;
 import static org.forgerock.json.resource.http.HttpUtils.getMethod;
 import static org.forgerock.json.resource.http.HttpUtils.getParameter;
 import static org.forgerock.json.resource.http.HttpUtils.getRequestedResourceVersion;
-import static org.forgerock.json.resource.http.HttpUtils.prepareResponse;
 import static org.forgerock.json.resource.http.HttpUtils.rejectIfMatch;
 import static org.forgerock.json.resource.http.HttpUtils.rejectIfNoneMatch;
 import static org.forgerock.json.resource.http.HttpUtils.staticContextFactory;
 import static org.forgerock.util.Reject.checkNotNull;
 import static org.forgerock.util.promise.Promises.newResultPromise;
+import static org.wrensecurity.guava.common.base.Optional.absent;
+import static org.wrensecurity.guava.common.base.Strings.isNullOrEmpty;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.PathItem;
+import io.swagger.v3.oas.models.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
-
 import org.forgerock.api.CrestApiProducer;
 import org.forgerock.api.jackson.PathsModule;
 import org.forgerock.api.models.ApiDescription;
 import org.forgerock.api.transform.OpenApiTransformer;
-import org.wrensecurity.guava.common.base.Optional;
-import org.wrensecurity.guava.common.cache.CacheBuilder;
-import org.wrensecurity.guava.common.cache.CacheLoader;
-import org.wrensecurity.guava.common.cache.LoadingCache;
-import org.wrensecurity.guava.common.util.concurrent.UncheckedExecutionException;
 import org.forgerock.http.ApiProducer;
 import org.forgerock.http.Handler;
 import org.forgerock.http.header.AcceptLanguageHeader;
@@ -94,7 +91,6 @@ import org.forgerock.http.protocol.Response;
 import org.forgerock.http.protocol.Status;
 import org.forgerock.http.routing.UriRouterContext;
 import org.forgerock.http.routing.Version;
-import org.forgerock.http.swagger.SwaggerUtils;
 import org.forgerock.http.util.Json;
 import org.forgerock.http.util.Uris;
 import org.forgerock.json.JsonValue;
@@ -120,7 +116,6 @@ import org.forgerock.json.resource.Requests;
 import org.forgerock.json.resource.ResourceException;
 import org.forgerock.json.resource.ResourcePath;
 import org.forgerock.json.resource.UpdateRequest;
-import org.forgerock.services.context.ClientContext;
 import org.forgerock.services.context.Context;
 import org.forgerock.services.context.RootContext;
 import org.forgerock.services.descriptor.Describable;
@@ -130,12 +125,11 @@ import org.forgerock.util.promise.NeverThrowsException;
 import org.forgerock.util.promise.Promise;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
-import io.swagger.models.Path;
-import io.swagger.models.Swagger;
+import org.wrensecurity.guava.common.base.Optional;
+import org.wrensecurity.guava.common.cache.CacheBuilder;
+import org.wrensecurity.guava.common.cache.CacheLoader;
+import org.wrensecurity.guava.common.cache.LoadingCache;
+import org.wrensecurity.guava.common.util.concurrent.UncheckedExecutionException;
 
 /**
  * HTTP adapter from HTTP calls to JSON resource calls. This class can be
@@ -169,7 +163,7 @@ import io.swagger.models.Swagger;
  * {@link CrestHttp} class contained within this package to build HTTP
  * Handlers since it provides support for these HTTP methods.
  */
-final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.http.protocol.Request>,
+final class HttpAdapter implements Handler, Describable<OpenAPI, org.forgerock.http.protocol.Request>,
         Describable.Listener {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpAdapter.class);
@@ -183,8 +177,8 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     private final String apiId;
     private final String apiVersion;
     private final List<Describable.Listener> apiListeners = new CopyOnWriteArrayList<>();
-    private ApiProducer<Swagger> apiProducer;
-    private LoadingCache<String, Optional<Swagger>> descriptorCache;
+    private ApiProducer<OpenAPI> apiProducer;
+    private LoadingCache<String, Optional<OpenAPI>> descriptorCache;
 
     /**
      * Creates a new HTTP adapter with the provided connection factory and a
@@ -305,9 +299,6 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
         try {
             Version requestedResourceVersion = getRequestedResourceVersion(req);
 
-            // Prepare response.
-            Response resp = prepareResponse(req);
-
             // Validate request.
             preprocessRequest(req);
             rejectIfNoneMatch(req);
@@ -328,7 +319,7 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                     request.setAdditionalParameter(name, asSingleValue(name, values));
                 }
             }
-            return doRequest(context, req, resp, request);
+            return doRequest(context, req, request);
         } catch (final Exception e) {
             return fail(req, e);
         }
@@ -337,9 +328,6 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     Promise<Response, NeverThrowsException> doRead(Context context, org.forgerock.http.protocol.Request req) {
         try {
             Version requestedResourceVersion = getRequestedResourceVersion(req);
-
-            // Prepare response.
-            Response resp = prepareResponse(req);
 
             // Validate request.
             preprocessRequest(req);
@@ -362,20 +350,12 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                 if (parseCommonParameter(name, values, request)) {
                     continue;
                 } else if (PARAM_MIME_TYPE.equalsIgnoreCase(name)) {
-                    if (values.size() != 1 || values.get(0).split(FIELDS_DELIMITER).length > 1) {
-                        // FIXME: i18n.
-                        throw new BadRequestException("Only one mime type value allowed");
-                    }
-                    if (parameters.get(PARAM_FIELDS).size() != 1) {
-                        // FIXME: i18n.
-                        throw new BadRequestException("The mime type parameter requires only "
-                                + "1 field to be specified");
-                    }
+                    // simply ignore -> support for custom MIME type is up to handler implementation
                 } else {
                     request.setAdditionalParameter(name, asSingleValue(name, values));
                 }
             }
-            return doRequest(context, req, resp, request);
+            return doRequest(context, req, request);
         } catch (final Exception e) {
             return fail(req, e);
         }
@@ -384,9 +364,6 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     Promise<Response, NeverThrowsException> doQuery(Context context, org.forgerock.http.protocol.Request req) {
         try {
             Version requestedResourceVersion = getRequestedResourceVersion(req);
-
-            // Prepare response.
-            Response resp = prepareResponse(req);
 
             // Validate request.
             preprocessRequest(req);
@@ -477,7 +454,7 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                         + PARAM_PAGED_RESULTS_COOKIE + " are mutually exclusive");
             }
 
-            return doRequest(context, req, resp, request);
+            return doRequest(context, req, request);
         } catch (final Exception e) {
             return fail(req, e);
         }
@@ -486,9 +463,6 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     Promise<Response, NeverThrowsException> doPatch(Context context, org.forgerock.http.protocol.Request req) {
         try {
             Version requestedResourceVersion = getRequestedResourceVersion(req);
-
-            // Prepare response.
-            Response resp = prepareResponse(req);
 
             // Validate request.
             preprocessRequest(req);
@@ -515,7 +489,7 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                     request.setAdditionalParameter(name, asSingleValue(name, values));
                 }
             }
-            return doRequest(context, req, resp, request);
+            return doRequest(context, req, request);
         } catch (final Exception e) {
             return fail(req, e);
         }
@@ -524,8 +498,6 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     Promise<Response, NeverThrowsException> doCreate(Context context, org.forgerock.http.protocol.Request req) {
         try {
             Version requestedResourceVersion = getRequestedResourceVersion(req);
-            // Prepare response.
-            Response resp = prepareResponse(req);
 
             // Validate request.
             preprocessRequest(req);
@@ -551,7 +523,7 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                         request.setAdditionalParameter(name, asSingleValue(name, values));
                     }
                 }
-                return doRequest(context, req, resp, request);
+                return doRequest(context, req, request);
             } else {
 
                 if (req.getHeaders().getFirst(HEADER_IF_MATCH) != null
@@ -586,7 +558,7 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                         request.setAdditionalParameter(name, asSingleValue(name, values));
                     }
                 }
-                return doRequest(context, req, resp, request);
+                return doRequest(context, req, request);
             }
         } catch (final Exception e) {
             return fail(req, e);
@@ -596,9 +568,6 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     Promise<Response, NeverThrowsException> doAction(Context context, org.forgerock.http.protocol.Request req) {
         try {
             Version requestedResourceVersion = getRequestedResourceVersion(req);
-
-            // Prepare response.
-            Response resp = prepareResponse(req);
 
             // Validate request.
             preprocessRequest(req);
@@ -624,7 +593,7 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                     request.setAdditionalParameter(name, asSingleValue(name, values));
                 }
             }
-            return doRequest(context, req, resp, request);
+            return doRequest(context, req, request);
         } catch (final Exception e) {
             return fail(req, e);
         }
@@ -633,9 +602,6 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     Promise<Response, NeverThrowsException> doUpdate(Context context, org.forgerock.http.protocol.Request req) {
         try {
             Version requestedResourceVersion = getRequestedResourceVersion(req);
-
-            // Prepare response.
-            Response resp = prepareResponse(req);
 
             // Validate request.
             preprocessRequest(req);
@@ -665,13 +631,12 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                     request.setAdditionalParameter(name, asSingleValue(name, values));
                 }
             }
-            return doRequest(context, req, resp, request);
+            return doRequest(context, req, request);
         } catch (final Exception e) {
             return fail(req, e);
         }
     }
 
-    @SuppressWarnings("unchecked")
     private Promise<Response, NeverThrowsException> doApiRequest(Context context,
             final org.forgerock.http.protocol.Request req) {
         try {
@@ -715,9 +680,9 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     }
 
     private Promise<Response, NeverThrowsException> doRequest(Context context, org.forgerock.http.protocol.Request req,
-            Response resp, Request request) throws Exception {
+            Request request) throws Exception {
         Context ctx = prepareRequest(context, req, request);
-        final RequestRunner runner = new RequestRunner(ctx, request, req, resp);
+        final RequestRunner runner = new RequestRunner(ctx, request, req, new Response(Status.OK));
         return connectionFactory.getConnectionAsync()
                 .thenAsync(new AsyncFunction<Connection, Response, NeverThrowsException>() {
                     @Override
@@ -833,12 +798,12 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     }
 
     @Override
-    public Swagger api(ApiProducer<Swagger> producer) {
+    public OpenAPI api(ApiProducer<OpenAPI> producer) {
         this.apiProducer = producer;
         return updateDescriptor();
     }
 
-    private Swagger updateDescriptor() {
+    private OpenAPI updateDescriptor() {
         if (apiProducer == null) {
             // Not yet attached to CHF
             return null;
@@ -849,9 +814,9 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                 ApiDescription api = describable.get().api(new CrestApiProducer(apiId, apiVersion));
                 if (api != null) {
                     this.descriptorCache = CacheBuilder.newBuilder().expireAfterAccess(30, MINUTES)
-                            .build(new CacheLoader<String, Optional<Swagger>>() {
+                            .build(new CacheLoader<String, Optional<OpenAPI>>() {
                                 @Override
-                                public Optional<Swagger> load(String uri) throws ResourceException {
+                                public Optional<OpenAPI> load(String uri) throws ResourceException {
                                     UriRouterContext context = new UriRouterContext(new RootContext(), "", uri,
                                             Collections.<String, String>emptyMap());
                                     ApiDescription api = getDescribableConnection().get()
@@ -860,23 +825,26 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
                                     if (api == null) {
                                         return absent();
                                     }
-                                    Swagger swagger = OpenApiTransformer.execute(api, COMMONS_API_DESCRIPTION);
+                                    OpenAPI openApi = OpenApiTransformer.execute(api, COMMONS_API_DESCRIPTION);
                                     uri = removeTrailingSlash(uri);
                                     if (!isNullOrEmpty(uri)) {
                                         uri = addLeadingSlash(Uris.urlDecodePathElement(uri));
                                     }
-                                    Map<String, Path> paths = new TreeMap<>();
-                                    for (Map.Entry<String, Path> path : swagger.getPaths().entrySet()) {
-                                        String pathString = path.getKey();
-                                        // A path from Swagger will always start with a slash.
-                                        // Remove leading slash from only if it is also the end of the path
-                                        if ((pathString.startsWith("/#") || pathString.equals("/")) && !uri.isEmpty()) {
-                                            pathString = pathString.substring(1);
+                                    Paths paths = new Paths();
+                                    if (openApi.getPaths() != null) {
+                                        for (Map.Entry<String, PathItem> path : openApi.getPaths().entrySet()) {
+                                            String pathString = path.getKey();
+                                            // A path will always start with a slash.
+                                            // Remove leading slash only if it is also the end of the path
+                                            if ((pathString.startsWith("/#") || pathString.equals("/"))
+                                                    && !uri.isEmpty()) {
+                                                pathString = pathString.substring(1);
+                                            }
+                                            paths.addPathItem(uri + pathString, path.getValue());
                                         }
-                                        paths.put(uri + pathString, path.getValue());
                                     }
-                                    swagger.setPaths(paths);
-                                    return Optional.of(apiProducer.addApiInfo(swagger));
+                                    openApi.setPaths(paths);
+                                    return Optional.of(apiProducer.addApiInfo(openApi));
                                 }
                             });
                     try {
@@ -893,11 +861,11 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
     }
 
     @Override
-    public Swagger handleApiRequest(Context context, org.forgerock.http.protocol.Request request) {
+    public OpenAPI handleApiRequest(Context context, org.forgerock.http.protocol.Request request) {
         if (descriptorCache == null) {
             return null;
         }
-        Optional<Swagger> result;
+        Optional<OpenAPI> result;
         try {
             if (context.containsContext(UriRouterContext.class)) {
                 result = descriptorCache.get(context.asContext(UriRouterContext.class).getRemainingUri());
@@ -909,11 +877,7 @@ final class HttpAdapter implements Handler, Describable<Swagger, org.forgerock.h
         } catch (UncheckedExecutionException e) {
             throw (RuntimeException) e.getCause();
         }
-        Swagger descriptor = result.orNull();
-        if (descriptor != null && descriptor.getHost() == null) {
-            return SwaggerUtils.clone(descriptor).host(context.asContext(ClientContext.class).getLocalAddress());
-        }
-        return descriptor;
+        return result.orNull();
     }
 
     @Override

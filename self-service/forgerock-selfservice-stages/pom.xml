@@ -21,7 +21,7 @@
     <parent>
         <artifactId>forgerock-selfservice</artifactId>
         <groupId>org.wrensecurity.commons</groupId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-selfservice-stages</artifactId>
@@ -41,11 +41,13 @@
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource-http</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-resource</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -56,16 +58,19 @@
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-web-token</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-util</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.http</groupId>
             <artifactId>chf-client-apache-sync</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -94,6 +99,7 @@
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>forgerock-test-utils</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

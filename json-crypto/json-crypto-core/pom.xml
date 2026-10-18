@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>json-crypto</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>json-crypto-core</artifactId>
@@ -31,8 +31,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.wrensecurity.commons</groupId>
-            <artifactId>forgerock-util</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
         </dependency>
 
         <dependency>
@@ -46,8 +46,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
+            <groupId>org.wrensecurity.commons</groupId>
+            <artifactId>forgerock-util</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -66,9 +67,11 @@
                     </instructions>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+
                 <configuration>
                     <archive>
                         <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>

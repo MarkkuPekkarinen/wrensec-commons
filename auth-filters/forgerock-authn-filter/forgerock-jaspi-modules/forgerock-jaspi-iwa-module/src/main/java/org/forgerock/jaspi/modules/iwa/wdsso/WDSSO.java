@@ -26,6 +26,7 @@
  * $Id: WindowsDesktopSSO.java,v 1.7 2009/07/28 19:40:45 beomsuk Exp $
  *
  * Portions Copyrighted 2011-2016 ForgeRock AS.
+ * Portions Copyright 2024 Wren Security
  */
 
 package org.forgerock.jaspi.modules.iwa.wdsso;
@@ -44,7 +45,6 @@ import javax.security.auth.Subject;
 import javax.security.auth.login.Configuration;
 import javax.security.auth.login.LoginContext;
 
-import org.forgerock.http.protocol.Request;
 import org.forgerock.services.context.AttributesContext;
 import org.forgerock.services.context.Context;
 import org.ietf.jgss.GSSContext;
@@ -54,7 +54,7 @@ import org.ietf.jgss.GSSManager;
 import org.ietf.jgss.GSSName;
 
 /**
- * Windows Desktop Single Sign On implementation, extracted from OpenAM.
+ * Windows Desktop Single Sign On implementation.
  */
 public class WDSSO {
 
@@ -66,21 +66,7 @@ public class WDSSO {
     private String kdcServer  = null;
     private boolean returnRealm = false;
 
-    /**
-     * Constructor.
-     */
     public WDSSO() {
-    }
-
-    /**
-     * Initialize parameters.
-     *
-     * @param subject The subject.
-     * @param sharedState The shared state.
-     * @param options The options.
-     */
-    public void init(Subject subject, Map sharedState, Map options) {
-
     }
 
     /**
@@ -95,28 +81,22 @@ public class WDSSO {
     private static String user;
 
     /**
-     * Process the login attempt.
-     * @param options The options.
-     * @param context The context.
-     * @param request The request.
-     * @return The result.
+     * Process Windows SSO login attempt.
+     *
+     * @param options Authentication module configuration options.
+     * @param context Request context.
+     * @param spnegoToken SPNEGO token from authorization header.
+     * @return Username of the logged user.
      * @throws Exception If an error occurred.
      */
-    public String process(Map<String, String> options, Context context, Request request) throws Exception {
+    public String process(Map<String, Object> options, Context context, byte[] spnegoToken) throws Exception {
         // Check to see if the Rest Auth Endpoint has signified that IWA has failed.
         if (hasWDSSOFailed(context)) {                 //TODO this is not required in the context of IB/IDM
             return "SEND_CONTINUE";
         }
 
         if (!getConfigParams(options)) {
-            initWindowsDesktopSSOAuth(options);
-        }
-
-        // retrieve the spnego token
-        byte[] spnegoToken = getSPNEGOTokenFromHTTPRequest(request);
-        if (spnegoToken == null) {
-            LOG.error("IWA WDSSO: spnego token is not valid.");
-            throw new RuntimeException();
+            initWindowsDesktopSSOAuth();
         }
 
         // parse the spnego token and extract the kerberos mech token from it
@@ -257,23 +237,6 @@ public class WDSSO {
         return Boolean.valueOf((String) context.asContext(AttributesContext.class).getAttributes().get("iwa-failed"));
     }
 
-    private byte[] getSPNEGOTokenFromHTTPRequest(Request req) {
-        byte[] spnegoToken = null;
-        String header = req.getHeaders().getFirst("Authorization");
-        if ((header != null) && header.startsWith("Negotiate")) {
-            header = header.substring("Negotiate".length()).trim();
-            LOG.debug("IWA WDSSO: \"Authorization\" header set, {}", header);
-            try {
-                spnegoToken = Base64.decode(header);
-            } catch (Exception e) {
-                LOG.error("IWA WDSSO: Failed to get SPNEGO Token from request");
-            }
-        } else {
-            LOG.error("IWA WDSSO: \"Authorization\" header not set in reqest");
-        }
-        return spnegoToken;
-    }
-
     private byte[] parseToken(byte[] rawToken) {
         byte[] token = rawToken;
         DerValue tmpToken = new DerValue(rawToken);
@@ -335,21 +298,21 @@ public class WDSSO {
         return token;
     }
 
-    private boolean getConfigParams(Map<String, String> options) {
+    private boolean getConfigParams(Map<String, Object> options) {
         // KDC realm in service principal must be uppercase.
-        servicePrincipalName = options.get("servicePrincipal");
-        keyTabFile = options.get("keytabFileName");
-        kdcRealm = options.get("kerberosRealm");
-        kdcServer = options.get("kerberosServerName");
+        servicePrincipalName = (String) options.get("servicePrincipal");
+        keyTabFile = (String) options.get("keytabFileName");
+        kdcRealm = (String) options.get("kerberosRealm");
+        kdcServer = (String) options.get("kerberosServerName");
         if (options.get("returnRealm") != null) {
-            returnRealm = Boolean.valueOf(options.get("returnRealm"));
+            returnRealm = Boolean.valueOf((String) options.get("returnRealm"));
         }
         LOG.debug("IWA WDSSO: WindowsDesktopSSO params: principal: {}, keytab file: {}, realm : {}, kdc server: {}, returnRealm: {}",
                 servicePrincipalName, keyTabFile, kdcRealm, kdcServer, returnRealm);
         return serviceSubject != null;
     }
 
-    private void initWindowsDesktopSSOAuth(Map options) throws Exception {
+    private void initWindowsDesktopSSOAuth() throws Exception {
         verifyAttributes();
         serviceLogin();
     }

@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.wrensecurity.http</groupId>
     <artifactId>forgerock-http-framework-parent</artifactId>
-    <version>22.6.0-SNAPSHOT</version>
+    <version>23.0.4-SNAPSHOT</version>
   </parent>
 
   <artifactId>chf-oauth2</artifactId>
@@ -51,16 +51,19 @@
     <dependency>
       <groupId>org.wrensecurity.http</groupId>
       <artifactId>chf-http-core</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.wrensecurity.commons</groupId>
       <artifactId>forgerock-util</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.wrensecurity.commons</groupId>
       <artifactId>json-web-token</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>

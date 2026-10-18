@@ -12,7 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
- * Portions copyright 2021 Wren Security.
+ * Portions copyright 2021-2023 Wren Security.
  */
 
 package org.forgerock.audit.handlers.json;
@@ -24,7 +24,7 @@ import static org.forgerock.audit.handlers.json.JsonAuditEventHandler.ROTATE_FIL
 import static org.forgerock.json.JsonValue.*;
 import static org.forgerock.json.JsonValue.field;
 import static org.forgerock.util.test.FileUtils.deleteRecursively;
-import static org.junit.Assert.fail;
+import static org.testng.Assert.fail;
 
 import java.io.InputStream;
 import java.nio.file.DirectoryStream;

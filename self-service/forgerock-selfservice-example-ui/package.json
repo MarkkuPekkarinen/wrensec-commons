@@ -1,11 +1,15 @@
 {
-  "name": "test_mock",
-  "author": "Jake Feasel <jake.feasel@forgerock.com>",
-  "version": "0.0.1",
+  "name": "@wrensecurity/self-service-example-ui",
+  "description": "Wren Security Commons Self Service - Example UI",
+  "private": true,
+  "scripts": {
+    "build": "gulp prod",
+    "start": "gulp dev",
+    "postdeps": "npm shrinkwrap --include=dev"
+  },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-watch": "~0.4.0",
-    "grunt-contrib-less": "~0.11",
-    "grunt-sync": "~0.0.6"
+    "@wrensecurity/commons-ui-build": "file:target/ui-libs/wrensecurity-commons-ui-build-0.0.0.tgz",
+    "@wrensecurity/eslint-config": "^0.3.0",
+    "gulp": "^4.0.2"
   }
 }

@@ -12,6 +12,7 @@
  * information: "Portions Copyrighted [year] [name of copyright owner]".
  *
  *      Copyright 2014 ForgeRock AS
+ * Portions copyright 2023 Wren Security
  */
 package org.forgerock.i18n.slf4j;
 
@@ -84,8 +85,8 @@ public class LocalizedMarker implements Marker {
 
     /** {@inheritDoc} */
     @Override
-    public Iterator<?> iterator() {
-        return Collections.emptySet().iterator();
+    public Iterator<Marker> iterator() {
+        return Collections.<Marker>emptySet().iterator();
     }
 
     /** {@inheritDoc} */

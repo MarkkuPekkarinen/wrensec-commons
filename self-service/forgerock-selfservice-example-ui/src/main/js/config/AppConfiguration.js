@@ -22,8 +22,6 @@
  * "Portions Copyrighted [year] [name of copyright owner]"
  */
 
-/*global define*/
-
 define("config/AppConfiguration", [
     "org/forgerock/commons/ui/common/util/Constants"
 ], function (Constants) {

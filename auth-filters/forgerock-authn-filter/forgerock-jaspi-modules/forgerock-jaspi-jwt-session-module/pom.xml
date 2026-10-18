@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.wrensecurity.commons</groupId>
         <artifactId>forgerock-jaspi-modules</artifactId>
-        <version>22.6.0-SNAPSHOT</version>
+        <version>23.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>forgerock-jaspi-jwt-session-module</artifactId>
@@ -57,23 +57,25 @@
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>json-web-token</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wrensecurity.commons</groupId>
             <artifactId>security</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Included only to allow building the Cookie class. Do not use APIs not present in 2.5 -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.security.auth.message</artifactId>
+            <groupId>jakarta.security.auth.message</groupId>
+            <artifactId>jakarta.security.auth.message-api</artifactId>
         </dependency>
     </dependencies>
 </project>

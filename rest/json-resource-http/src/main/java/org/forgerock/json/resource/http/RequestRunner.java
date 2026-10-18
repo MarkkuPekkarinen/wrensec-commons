@@ -12,8 +12,8 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2012-2017 ForgeRock AS.
+ * Portions Copyright 2026 Wren Security
  */
-
 package org.forgerock.json.resource.http;
 
 import static org.forgerock.http.util.Paths.addLeadingSlash;
@@ -39,18 +39,20 @@ import static org.forgerock.json.resource.http.HttpUtils.fail;
 import static org.forgerock.json.resource.http.HttpUtils.getIfNoneMatch;
 import static org.forgerock.json.resource.http.HttpUtils.getJsonGenerator;
 import static org.forgerock.json.resource.http.HttpUtils.getRequestedProtocolVersion;
+import static org.forgerock.json.resource.http.HttpUtils.writeCacheControlHeader;
+import static org.forgerock.json.resource.http.HttpUtils.writeContentTypeHeader;
 import static org.forgerock.util.Utils.closeSilently;
 import static org.forgerock.util.promise.Promises.newResultPromise;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.ParseException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.mail.internet.ContentType;
-import javax.mail.internet.ParseException;
-
 import org.forgerock.http.header.ContentApiVersionHeader;
 import org.forgerock.http.header.ContentTypeHeader;
 import org.forgerock.http.header.MalformedHeaderException;
@@ -85,9 +87,6 @@ import org.forgerock.util.promise.ExceptionHandler;
 import org.forgerock.util.promise.NeverThrowsException;
 import org.forgerock.util.promise.Promise;
 import org.forgerock.util.promise.ResultHandler;
-
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 /**
  * Common request processing.
@@ -152,8 +151,10 @@ final class RequestRunner implements RequestVisitor<Promise<Response, NeverThrow
                     public Promise<Response, NeverThrowsException> apply(ActionResponse result) {
                         try {
                             writeApiVersionHeaders(result);
+                            writeCacheControlHeader(httpResponse);
                             writeAdvice();
                             if (result != null) {
+                                writeContentTypeHeader(httpResponse);
                                 Json.makeLocalizingObjectWriter(JSON_MAPPER, httpRequest)
                                         .writeValue(jsonGenerator, result.getJsonContent().getObject());
                             } else {
@@ -191,6 +192,8 @@ final class RequestRunner implements RequestVisitor<Promise<Response, NeverThrow
                                 httpResponse.getHeaders().put(HEADER_LOCATION, getResourceURL(result, request));
                             }
                             httpResponse.setStatus(Status.CREATED);
+                            writeContentTypeHeader(httpResponse);
+                            writeCacheControlHeader(httpResponse);
                             writeResource(result);
                             onSuccess();
                         } catch (final Exception e) {
@@ -327,6 +330,8 @@ final class RequestRunner implements RequestVisitor<Promise<Response, NeverThrow
         if (isFirstResult.compareAndSet(true, false)) {
             writeApiVersionHeaders(response);
             writeAdvice();
+            writeContentTypeHeader(httpResponse);
+            writeCacheControlHeader(httpResponse);
             jsonGenerator.writeStartObject();
             jsonGenerator.writeArrayFieldStart(FIELD_RESULT);
         }
@@ -417,6 +422,8 @@ final class RequestRunner implements RequestVisitor<Promise<Response, NeverThrow
                                     .setEntity(responseBody));
                         }
                     }
+                    writeContentTypeHeader(httpResponse);
+                    writeCacheControlHeader(httpResponse);
                     writeResource(result);
                     onSuccess();
                 } catch (final Exception e) {

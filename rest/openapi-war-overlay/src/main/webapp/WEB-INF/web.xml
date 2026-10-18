@@ -13,10 +13,11 @@
   ~ information: "Portions copyright [year] [name of copyright owner]".
   ~
   ~ Copyright 2016 ForgeRock AS.
+  ~ Portions Copyright 2026 Wren Security
   -->
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-         version="3.0">
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
 
     <display-name>This web.xml is a required placeholder and will NOT be copied by maven-war-plugin.</display-name>
 
@@ -24,7 +25,11 @@
     <!--
     <servlet>
         <servlet-name>OpenAPIAssetsServlet</servlet-name>
-        <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+        <servlet-class>org.eclipse.jetty.ee11.servlet.ResourceServlet</servlet-class>
+        <init-param>
+            <param-name>pathInfoOnly</param-name>
+            <param-value>false</param-value>
+        </init-param>
     </servlet>
 
     <servlet-mapping>

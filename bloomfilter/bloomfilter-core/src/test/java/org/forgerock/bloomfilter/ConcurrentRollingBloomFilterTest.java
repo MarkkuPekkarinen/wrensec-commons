@@ -12,11 +12,13 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015 ForgeRock AS.
+ * Portions copyright 2023 Wren Security
  */
 
 package org.forgerock.bloomfilter;
 
-import junit.framework.Assert;
+import static org.testng.Assert.assertTrue;
+
 import org.wrensecurity.guava.common.hash.Funnels;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -104,7 +106,7 @@ public class ConcurrentRollingBloomFilterTest {
         System.out.printf("Write Time: %s -> %dms%n", impl, (end - start));
 
         for (int i = 0; i < 50000; ++i) {
-            Assert.assertTrue(impl.mightContain("Test" + i));
+            assertTrue(impl.mightContain("Test" + i));
         }
     }
 
